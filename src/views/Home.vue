@@ -172,12 +172,12 @@ header {
   }
 
   h1 {
-    color: #404040;
+    color: $grey;
     margin: 15px 0;
   }
 
   p {
-    color: #8c8c8c;
+    color: $grey;
     font-size: 14px;
   }
 }
@@ -191,15 +191,15 @@ header {
 .toggle {
   span {
     display: inline-block;
-    background: #b9b9b9;
+    background: $light-grey;
     width: 50px;
     height: 20px;
-    border: 5px solid #b9b9b9;
+    border: 5px solid $light-grey;
     border-radius: 35px;
 
     &:before {
-      background: #ff1510;
-      box-shadow: 0 2px 3px #ff6272;
+      background: $main-color;
+      box-shadow: 0 2px 3px lighten($main-color, 15%);
       content: '';
       height: 20px;
       width: 20px;
@@ -228,21 +228,21 @@ header {
   input {
     background: none;
     border: none;
-    color: #ff1510;
+    color: $main-color;
     font-size: 18px;
     padding: 2px;
     margin-left: 20px;
     width: 100%;
 
     &::placeholder {
-      color: #ff1510;
+      color: $main-color;
       opacity: 0.5;
     }
   }
 
   &-header {
     align-items: center;
-    color: #ff1510;
+    color: $main-color;
     display: flex;
     font-size: 14px;
     margin: 15px 0 30px;
@@ -258,7 +258,7 @@ header {
       button {
         background: none;
         border: none;
-        color: #ff1510;
+        color: $main-color;
         font-size: 14px;
 
       }
@@ -275,7 +275,7 @@ header {
   }
 
   &-feedback {
-    color: #909090;
+    color: $light-grey;
     flex-grow: 1;
     font-size: 16px;
   }
@@ -285,14 +285,14 @@ header {
     width: 220px;
 
     &-details {
-      color: #404040;
+      color: $dark-grey;
       font-size: 18px;
       margin: 15px 0;
 
       button {
         background: none;
         border: none;
-        color: #ff1510;
+        color: $main-color;
         font-size: 14px;
       }
     }
