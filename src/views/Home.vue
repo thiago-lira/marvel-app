@@ -3,34 +3,7 @@
     <HeaderHome />
 
     <section class="main-content">
-      <div class="search-header">
-        <div class="search-feedback">
-          <p>
-          Encontrados 20 heróis
-          </p>
-        </div>
-
-        <div class="search-sorting flex">
-          <img src="@/assets/hero.svg" alt="Ícone organizar por nome">
-
-          <span class="sorting-long-description">
-            Ordenar por nome
-          </span>
-          - A/Z
-
-          <div class="toggle">
-            <span />
-          </div>
-        </div>
-
-        <div class="search-only-favs-option">
-          <button class="flex">
-            <img src="@/assets/fav.svg" alt="Ícone favoritos">
-
-            <p>Somente favoritos</p>
-          </button>
-        </div>
-      </div>
+      <SearchHeader />
 
       <div class="search-container flex">
         <div class="search-card">
@@ -124,11 +97,13 @@
 
 <script>
 import HeaderHome from '@/components/HeaderHome.vue';
+import SearchHeader from '@/components/SearchHeader.vue';
 
 export default {
   name: 'Home',
   components: {
     HeaderHome,
+    SearchHeader,
   },
 };
 </script>
@@ -162,50 +137,10 @@ export default {
   }
 }
 
-.flex {
-  align-items: center;
-  display: flex;
-}
-
 .search {
-  &-header {
-    align-items: center;
-    color: $main-color;
-    display: flex;
-    font-size: 14px;
-    margin: 15px 0 30px;
-
-    img {
-      margin-right: 15px;
-    }
-
-    .toggle {
-      margin-left: 15px;
-    }
-    .search-only-favs-option {
-      button {
-        background: none;
-        border: none;
-        color: $main-color;
-        font-size: 14px;
-
-      }
-    }
-
-    > :not(div:first-child) {
-      margin: 0 10px;
-    }
-  }
-
   &-container {
     flex-wrap: wrap;
     justify-content: center;
-  }
-
-  &-feedback {
-    color: $light-grey;
-    flex-grow: 1;
-    font-size: 16px;
   }
 
   &-card {
