@@ -2,7 +2,7 @@
   <div class="search-header">
     <div class="search-feedback">
       <p>
-      Encontrados {{ totalHeroes }} heróis
+        {{ foundHeroesMessage }}
       </p>
     </div>
 
@@ -36,6 +36,15 @@ export default {
     totalHeroes: {
       type: Number,
       required: true,
+    },
+  },
+  computed: {
+    foundHeroesMessage() {
+      const { totalHeroes } = this;
+      console.log(totalHeroes);
+      return (totalHeroes > 1)
+        ? `Encontrados ${totalHeroes} heróis`
+        : `Encontrado ${totalHeroes} herói`;
     },
   },
 };

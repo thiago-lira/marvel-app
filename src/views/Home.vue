@@ -3,7 +3,7 @@
     <HeaderHome />
 
     <section class="main-content">
-      <SearchHeader total-heroes="heroes.length" />
+      <SearchHeader :total-heroes="heroes.length" />
 
       <SearchContainer />
     </section>
