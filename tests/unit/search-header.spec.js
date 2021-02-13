@@ -16,7 +16,16 @@ describe('SearchHeader.vue', () => {
     expect(wrapper.exists()).to.equal(true);
   });
 
-  it('should show total result', () => {
+  it('should show a result message using plural', () => {
     expect(wrapper.text()).to.include('Encontrados 2 heróis');
+  });
+
+  it('should show a result message using singular', () => {
+    wrapper = shallowMount(SearchHeader, {
+      propsData: {
+        totalHeroes: 1,
+      },
+    });
+    expect(wrapper.text()).to.include('Encontrado 1 herói');
   });
 });
