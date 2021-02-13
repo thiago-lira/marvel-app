@@ -15,19 +15,25 @@
       </p>
     </div>
 
-    <div class="search">
-      <label class="flex">
-        <div>
-          <img src="@/assets/magnify.svg" alt="Ícone buscar">
-        </div>
-
-        <div>
-          <input type="text" placeholder="Procurar por heróis">
-        </div>
-      </label>
-    </div>
+    <SearchInput @input="handleInput" placeholder="Procurar por heróis" />
   </header>
 </template>
+
+<script>
+import SearchInput from '@/components/SearchInput.vue';
+
+export default {
+  name: 'HeaderHome',
+  components: {
+    SearchInput,
+  },
+  methods: {
+    handleInput(value) {
+      this.$emit('input', value);
+    },
+  },
+};
+</script>
 
 <style lang="scss" scoped>
 header {
@@ -48,32 +54,6 @@ header {
   p {
     color: $grey;
     font-size: 14px;
-  }
-  .search {
-    background: #fdecec;
-    border-radius: 50px;
-    margin: 30px 0;
-
-    label {
-      align-items: center;
-      display: flex;
-      padding: 15px 20px;
-    }
-
-    input {
-      background: none;
-      border: none;
-      color: $main-color;
-      font-size: 18px;
-      padding: 2px;
-      margin-left: 20px;
-      width: 100%;
-
-      &::placeholder {
-        color: $main-color;
-        opacity: 0.5;
-      }
-    }
   }
 }
 </style>

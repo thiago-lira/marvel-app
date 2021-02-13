@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <HeaderHome />
+    <HeaderHome @input="handleInput" />
 
     <section class="main-content">
       <SearchHeader :total-heroes="heroes.length" />
@@ -20,6 +20,7 @@ export default {
   name: 'Home',
   data() {
     return {
+      term: '',
       heroes: [],
     };
   },
@@ -28,15 +29,44 @@ export default {
     SearchHeader,
     SearchContainer,
   },
+  watch: {
+    term(newValue) {
+      // TODO: move to function
+      setTimeout(() => {
+        if (newValue === '') {
+          this.getCharacters();
+          return;
+        }
+        if (this.term === newValue) {
+          this.getCharactersByName();
+        }
+      }, 400);
+    },
+  },
+  methods: {
+    mapHeroes({ data }) {
+      this.heroes = data.data.results.map(({ id, name, thumbnail: { extension, path } }) => ({
+        id,
+        name,
+        image: `${path}.${extension}`,
+      }));
+    },
+    getCharacters() {
+      marvelService
+        .getCharacters()
+        .then(this.mapHeroes);
+    },
+    getCharactersByName() {
+      marvelService
+        .getCharactersByName(this.term)
+        .then(this.mapHeroes);
+    },
+    handleInput(value) {
+      this.term = value;
+    },
+  },
   mounted() {
-    marvelService.getCharacters()
-      .then(({ data }) => {
-        this.heroes = data.data.results.map(({ id, name, thumbnail: { extension, path } }) => ({
-          id,
-          name,
-          image: `${path}.${extension}`,
-        }));
-      });
+    this.getCharacters();
   },
 };
 </script>

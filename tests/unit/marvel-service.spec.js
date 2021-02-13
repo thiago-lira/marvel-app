@@ -3,6 +3,7 @@ import sinon from 'sinon';
 import marvelService from '@/services/marvel';
 
 const fakeResponse = new Promise((resolve) => resolve({ data: {} }));
+const stubGetCharactersByName = sinon.stub(marvelService, 'getCharactersByName').returns(fakeResponse);
 sinon.stub(marvelService, 'getCharacters').returns(fakeResponse);
 
 describe('Marvel service', () => {
@@ -18,6 +19,11 @@ describe('Marvel service', () => {
         .then((data) => {
           expect(data).to.eql(expectedData);
         });
+    });
+
+    it('should to call api with a name to search', () => {
+      marvelService.getCharactersByName('Hulk');
+      expect(stubGetCharactersByName.calledWith('Hulk')).to.equal(true);
     });
   });
 });
