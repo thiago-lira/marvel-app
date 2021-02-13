@@ -20,12 +20,9 @@ describe('SearchHeader.vue', () => {
     expect(wrapper.text()).to.include('Encontrados 2 heróis');
   });
 
-  it('should show a result message using singular', () => {
-    wrapper = shallowMount(SearchHeader, {
-      propsData: {
-        totalHeroes: 1,
-      },
-    });
+  it('should show a result message using singular', async () => {
+    await wrapper.setProps({ totalHeroes: 1 });
+
     expect(wrapper.text()).to.include('Encontrado 1 herói');
   });
 });
