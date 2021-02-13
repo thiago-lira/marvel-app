@@ -27,6 +27,11 @@ export default {
   components: {
     SearchInput,
   },
+  data() {
+    return {
+      term: '',
+    };
+  },
   methods: {
     handleInput(value) {
       // TODO

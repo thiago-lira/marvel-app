@@ -4,18 +4,10 @@ import marvelService from '@/services/marvel';
 
 const fakeResponse = new Promise((resolve) => resolve({ data: {} }));
 sinon.stub(marvelService, 'getCharacters').returns(fakeResponse);
+const stubGetCharactersByName = sinon.stub(marvelService, 'getCharactersByName').returns(fakeResponse);
 
 describe('Marvel service', () => {
   describe('getCharacters', () => {
-    const sandbox = sinon.createSandbox();
-    beforeEach(() => {
-      sandbox.spy(marvelService, 'getCharacters');
-    });
-
-    afterEach(() => {
-      sandbox.restore();
-    });
-
     it('should to return a promise', () => {
       const result = marvelService.getCharacters();
       expect(result).to.be.a('promise');
@@ -30,7 +22,8 @@ describe('Marvel service', () => {
     });
 
     it('should to call api with a name to search', () => {
-      marvelServicee
+      marvelService.getCharactersByName('Hulk');
+      expect(stubGetCharactersByName.calledWith('Hulk')).to.equal(true);
     });
   });
 });
