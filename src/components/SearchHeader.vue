@@ -2,7 +2,7 @@
   <div class="search-header">
     <div class="search-feedback">
       <p>
-        Encontrados 20 heróis
+      Encontrados {{ totalHeroes }} heróis
       </p>
     </div>
 
@@ -32,6 +32,12 @@
 <script>
 export default {
   name: 'SearchHeader',
+  props: {
+    totalHeroes: {
+      type: Number,
+      required: true,
+    },
+  },
 };
 </script>
 
