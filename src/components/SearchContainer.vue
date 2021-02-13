@@ -1,27 +1,29 @@
 <template>
   <div>
     <div class="search-container flex">
-      <div class="search-card">
-        <div class="search-card-image">
-          <img src="http://i.annihil.us/u/prod/marvel/i/mg/2/80/511a79a0451a3.jpg" alt="Hero">
-        </div>
-
-        <div class="search-card-details flex">
-          <div class="card-hero-name">
-            <p>
-              <b>
-                Nome Grande de Um Grande Herói
-              </b>
-            </p>
+      <template v-if="heroes.length > 0">
+        <div class="search-card" v-for="{ id, name, image } in heroes" :key="id">
+          <div class="search-card-image">
+            <img :src="image" alt="Hero">
           </div>
 
-          <div class="card-hero-fav">
-            <button>
-              <img src="@/assets/fav-outline.svg" alt="Ícone herói favorito">
-            </button>
+          <div class="search-card-details flex">
+            <div class="card-hero-name">
+              <p>
+                <b>
+                  {{ name }}
+                </b>
+              </p>
+            </div>
+
+            <div class="card-hero-fav">
+              <button>
+                <img src="@/assets/fav-outline.svg" alt="Ícone herói favorito">
+              </button>
+            </div>
           </div>
         </div>
-      </div>
+      </template>
     </div>
   </div>
 </template>
@@ -29,6 +31,12 @@
 <script>
 export default {
   name: 'SearchContainer',
+  props: {
+    heroes: {
+      type: Array,
+      required: true,
+    },
+  },
 };
 </script>
 

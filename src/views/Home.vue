@@ -5,7 +5,7 @@
     <section class="main-content">
       <SearchHeader :total-heroes="heroes.length" />
 
-      <SearchContainer />
+      <SearchContainer :heroes="heroes" />
     </section>
   </div>
 </template>
@@ -31,7 +31,11 @@ export default {
   mounted() {
     marvelService.getCharacters()
       .then(({ data }) => {
-        this.heroes = data.data.results;
+        this.heroes = data.data.results.map(({ id, name, thumbnail: { extension, path } }) => ({
+          id,
+          name,
+          image: `${path}.${extension}`,
+        }));
       });
   },
 };
