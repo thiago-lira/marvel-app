@@ -14,19 +14,30 @@
 import HeaderHome from '@/components/HeaderHome.vue';
 import SearchHeader from '@/components/SearchHeader.vue';
 import SearchContainer from '@/components/SearchContainer.vue';
+import marvelService from '@/services/marvel';
 
 export default {
   name: 'Home',
+  data() {
+    return {
+      heroes: [],
+    };
+  },
   components: {
     HeaderHome,
     SearchHeader,
     SearchContainer,
   },
+  mounted() {
+    marvelService.getCharacters()
+      .then(({ data }) => {
+        this.heroes = data.data.results;
+      });
+  },
 };
 </script>
 
 <style lang="scss" scoped>
-
 .main-content {
   margin: auto;
   max-width: 960px;
