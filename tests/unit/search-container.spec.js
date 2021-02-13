@@ -1,6 +1,7 @@
 import { expect } from 'chai';
 import { shallowMount } from '@vue/test-utils';
 import SearchContainer from '@/components/SearchContainer.vue';
+import SearchCard from '@/components/SearchCard.vue';
 
 describe('SearchContainer.vue', () => {
   let wrapper;
@@ -27,6 +28,6 @@ describe('SearchContainer.vue', () => {
         { name: 'Loboverine', id: 321, image: 'path/to/image.jpg' },
       ],
     });
-    expect(wrapper.findAll('.search-card').length).to.equal(2);
+    expect(wrapper.findAllComponents(SearchCard).length).to.equal(2);
   });
 });

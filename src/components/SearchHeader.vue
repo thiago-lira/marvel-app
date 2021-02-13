@@ -41,7 +41,6 @@ export default {
   computed: {
     foundHeroesMessage() {
       const { totalHeroes } = this;
-      console.log(totalHeroes);
       return (totalHeroes > 1)
         ? `Encontrados ${totalHeroes} heróis`
         : `Encontrado ${totalHeroes} herói`;
