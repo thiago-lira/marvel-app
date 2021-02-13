@@ -21,7 +21,6 @@
         </div>
       </div>
     </div>
-    {{ hero.name }}
   </div>
 </template>
 
