@@ -5,92 +5,7 @@
     <section class="main-content">
       <SearchHeader />
 
-      <div class="search-container flex">
-        <div class="search-card">
-          <div class="search-card-image">
-            <img src="http://i.annihil.us/u/prod/marvel/i/mg/2/80/511a79a0451a3.jpg" alt="Hero">
-          </div>
-
-          <div class="search-card-details flex">
-            <div class="card-hero-name">
-              <p>
-                <b>
-                  Nome Grande de Um Grande Herói
-                </b>
-              </p>
-            </div>
-
-            <div class="card-hero-fav">
-              <button>
-                <img src="@/assets/fav-outline.svg" alt="Ícone herói favorito">
-              </button>
-            </div>
-          </div>
-        </div>
-        <div class="search-card">
-          <div class="search-card-image">
-            <img src="http://i.annihil.us/u/prod/marvel/i/mg/2/80/511a79a0451a3.jpg" alt="Hero">
-          </div>
-
-          <div class="search-card-details flex">
-            <div class="card-hero-name">
-              <p>
-                <b>
-                  Nome Grande de Um Grande Herói
-                </b>
-              </p>
-            </div>
-
-            <div class="card-hero-fav">
-              <button>
-                <img src="@/assets/fav-outline.svg" alt="Ícone herói favorito">
-              </button>
-            </div>
-          </div>
-        </div>
-        <div class="search-card">
-          <div class="search-card-image">
-            <img src="http://i.annihil.us/u/prod/marvel/i/mg/2/80/511a79a0451a3.jpg" alt="Hero">
-          </div>
-
-          <div class="search-card-details flex">
-            <div class="card-hero-name">
-              <p>
-                <b>
-                  Nome Grande de Um Grande Herói
-                </b>
-              </p>
-            </div>
-
-            <div class="card-hero-fav">
-              <button>
-                <img src="@/assets/fav-outline.svg" alt="Ícone herói favorito">
-              </button>
-            </div>
-          </div>
-        </div>
-        <div class="search-card">
-          <div class="search-card-image">
-            <img src="http://i.annihil.us/u/prod/marvel/i/mg/2/80/511a79a0451a3.jpg" alt="Hero">
-          </div>
-
-          <div class="search-card-details flex">
-            <div class="card-hero-name">
-              <p>
-                <b>
-                  Nome Grande de Um Grande Herói
-                </b>
-              </p>
-            </div>
-
-            <div class="card-hero-fav">
-              <button>
-                <img src="@/assets/fav-outline.svg" alt="Ícone herói favorito">
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
+      <SearchContainer />
     </section>
   </div>
 </template>
@@ -98,12 +13,14 @@
 <script>
 import HeaderHome from '@/components/HeaderHome.vue';
 import SearchHeader from '@/components/SearchHeader.vue';
+import SearchContainer from '@/components/SearchContainer.vue';
 
 export default {
   name: 'Home',
   components: {
     HeaderHome,
     SearchHeader,
+    SearchContainer,
   },
 };
 </script>
@@ -136,34 +53,4 @@ export default {
     }
   }
 }
-
-.search {
-  &-container {
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-
-  &-card {
-    margin: 10px;
-    width: 220px;
-
-    &-details {
-      color: $dark-grey;
-      font-size: 18px;
-      margin: 15px 0;
-
-      button {
-        background: none;
-        border: none;
-        color: $main-color;
-        font-size: 14px;
-      }
-    }
-
-    &-image img {
-      max-width: 100%;
-    }
-  }
-}
-
 </style>
