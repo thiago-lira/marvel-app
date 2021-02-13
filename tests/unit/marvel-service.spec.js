@@ -3,8 +3,8 @@ import sinon from 'sinon';
 import marvelService from '@/services/marvel';
 
 const fakeResponse = new Promise((resolve) => resolve({ data: {} }));
-sinon.stub(marvelService, 'getCharacters').returns(fakeResponse);
 const stubGetCharactersByName = sinon.stub(marvelService, 'getCharactersByName').returns(fakeResponse);
+sinon.stub(marvelService, 'getCharacters').returns(fakeResponse);
 
 describe('Marvel service', () => {
   describe('getCharacters', () => {

@@ -27,15 +27,9 @@ export default {
   components: {
     SearchInput,
   },
-  data() {
-    return {
-      term: '',
-    };
-  },
   methods: {
     handleInput(value) {
-      // TODO
-      console.log(value);
+      this.$emit('input', value);
     },
   },
 };
