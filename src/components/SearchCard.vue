@@ -58,6 +58,7 @@ export default {
   &-details {
     color: $dark-grey;
     font-size: 18px;
+    height: 50px;
     margin: 15px 0;
 
     button {
@@ -68,8 +69,18 @@ export default {
     }
   }
 
-  &-image img {
-    max-width: 100%;
+  &-image {
+    height: 200px;
+    text-align: center;
+    img {
+      display: inline-block;
+      max-height: 100%;
+      max-width: 100%;
+    }
+  }
+
+  .card-hero-name {
+    flex-grow: 1;
   }
 }
 </style>
