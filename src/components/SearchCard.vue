@@ -40,7 +40,11 @@ export default {
   },
   methods: {
     handleFavoriteClick() {
-      this.$emit('toggleFavorite', !this.isFavorite);
+      const payload = {
+        ...this.hero,
+        favorite: !this.isFavorite,
+      };
+      this.$emit('toggleFavorite', payload);
     },
   },
 };

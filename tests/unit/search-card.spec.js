@@ -4,15 +4,17 @@ import SearchCard from '@/components/SearchCard.vue';
 
 describe('SearchCard.vue', () => {
   let wrapper;
+  let hero;
   beforeEach(() => {
+    hero = {
+      id: 123,
+      name: 'Chico Xavier',
+      image: 'path/to/image.jpg',
+    };
     wrapper = shallowMount(SearchCard, {
       propsData: {
         isFavorite: false,
-        hero: {
-          id: 123,
-          name: 'Chico Xavier',
-          image: 'path/to/image.jpg',
-        },
+        hero,
       },
     });
   });
@@ -35,6 +37,10 @@ describe('SearchCard.vue', () => {
 
     await wrapper.vm.$nextTick();
 
-    expect(wrapper.emitted().toggleFavorite[0]).to.eql([true]);
+    const expectedData = {
+      ...hero,
+      favorite: true,
+    };
+    expect(wrapper.emitted().toggleFavorite[0]).to.eql([expectedData]);
   });
 });
