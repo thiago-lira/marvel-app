@@ -40,13 +40,19 @@ export default {
     isFavorite(idHero) {
       return this.favoritesId.some((id) => id === idHero);
     },
-    handleToggleFavorite({ id }) {
+    handleToggleFavorite({ id, name }) {
+      let message;
       const indexHero = this.favoritesId.findIndex((idHero) => idHero === id);
       if (indexHero !== -1) {
         this.favoritesId.splice(indexHero, 1);
+        message = `${name} foi removido da sua lista de favoritos`;
       } else if (this.favoritesId.length < 5) {
         this.favoritesId.push(id);
+        message = `${name} foi adicionado à sua lista de favorito`;
+      } else {
+        message = 'Não foi possível adicionar à sua lista de favoritos pois o limite é de 5 personagens';
       }
+      this.$addMessage(message);
       lsHeroes.set(this.favoritesId);
     },
   },
