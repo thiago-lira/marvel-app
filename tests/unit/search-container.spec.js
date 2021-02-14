@@ -64,4 +64,20 @@ describe('SearchContainer.vue', () => {
 
     expect(wrapper.vm.favoritesId).to.eql([]);
   });
+
+  it('should not include character id in favorites list when it already has 5 items', async () => {
+    const hurgui = { name: 'O Incrível Hurgui', id: 123, image: 'path/to/image.jpg' };
+    await wrapper.setData({
+      favoritesId: [1, 2, 3, 4, 5],
+    });
+    await wrapper.setProps({
+      heroes: [hurgui],
+    });
+    const searchCard = wrapper.findComponent(SearchCard);
+    searchCard.vm.$emit('toggleFavorite', { ...hurgui, favorite: true });
+
+    await wrapper.vm.$nextTick();
+
+    expect(wrapper.vm.favoritesId).to.eql([1, 2, 3, 4, 5]);
+  });
 });

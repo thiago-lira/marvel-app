@@ -44,7 +44,7 @@ export default {
       const indexHero = this.favoritesId.findIndex((idHero) => idHero === id);
       if (indexHero !== -1) {
         this.favoritesId.splice(indexHero, 1);
-      } else {
+      } else if (this.favoritesId.length < 5) {
         this.favoritesId.push(id);
       }
       lsHeroes.set(this.favoritesId);
