@@ -15,8 +15,9 @@
         </div>
 
         <div class="card-hero-fav">
-          <button>
-            <img src="@/assets/fav-outline.svg" alt="Ícone herói favorito">
+          <button @click="handleFavoriteClick">
+            <img v-if="isFavorite" src="@/assets/fav.svg" alt="Ícone herói favorito">
+            <img v-else src="@/assets/fav-outline.svg" alt="Ícone herói favorito">
           </button>
         </div>
       </div>
@@ -28,9 +29,18 @@
 export default {
   name: 'SearchCard',
   props: {
+    isFavorite: {
+      type: Boolean,
+      required: true,
+    },
     hero: {
       type: Object,
       required: true,
+    },
+  },
+  methods: {
+    handleFavoriteClick() {
+      this.$emit('toggleFavorite', !this.isFavorite);
     },
   },
 };

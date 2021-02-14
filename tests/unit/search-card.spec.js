@@ -7,6 +7,7 @@ describe('SearchCard.vue', () => {
   beforeEach(() => {
     wrapper = shallowMount(SearchCard, {
       propsData: {
+        isFavorite: false,
         hero: {
           id: 123,
           name: 'Chico Xavier',
@@ -26,5 +27,14 @@ describe('SearchCard.vue', () => {
 
   it('should to render the character image', () => {
     expect(wrapper.find('img').attributes('src')).to.equal('path/to/image.jpg');
+  });
+
+  it('should to emit "toggleFavorite" event', async () => {
+    const button = wrapper.find('button');
+    button.trigger('click');
+
+    await wrapper.vm.$nextTick();
+
+    expect(wrapper.emitted().toggleFavorite[0]).to.eql([true]);
   });
 });
