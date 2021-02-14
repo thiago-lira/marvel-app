@@ -41,7 +41,12 @@ export default {
       return this.favoritesId.some((id) => id === idHero);
     },
     handleToggleFavorite({ id }) {
-      this.favoritesId.push(id);
+      const indexHero = this.favoritesId.findIndex((idHero) => idHero === id);
+      if (indexHero !== -1) {
+        this.favoritesId.splice(indexHero, 1);
+      } else {
+        this.favoritesId.push(id);
+      }
       lsHeroes.set(this.favoritesId);
     },
   },
