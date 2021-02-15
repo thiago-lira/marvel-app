@@ -1,14 +1,21 @@
 <template>
   <div>
     <div class="search-container flex">
-      <template v-if="heroes.length > 0">
-        <SearchCard
-          v-for="{ id, name, image } in heroes"
-          :hero="{ name, image, id }"
-          :is-favorite="isFavorite(id)"
-          :key="id"
-          @toggleFavorite="handleToggleFavorite"
-        />
+      <template v-if="isLoading">
+        <div data-cy="loader">
+          Carregando...
+        </div>
+      </template>
+      <template v-else>
+        <template v-if="heroes.length > 0">
+          <SearchCard
+            v-for="{ id, name, image } in heroes"
+            :hero="{ name, image, id }"
+            :is-favorite="isFavorite(id)"
+            :key="id"
+            @toggleFavorite="handleToggleFavorite"
+          />
+        </template>
       </template>
     </div>
   </div>
@@ -26,6 +33,10 @@ export default {
     SearchCard,
   },
   props: {
+    isLoading: {
+      type: Boolean,
+      required: true,
+    },
     heroes: {
       type: Array,
       required: true,
