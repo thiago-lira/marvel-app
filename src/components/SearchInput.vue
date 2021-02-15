@@ -6,7 +6,12 @@
       </div>
 
       <div>
-        <input type="text" :placeholder="placeholder" @keyup="handleChange" />
+        <input
+          @keyup="handleChange"
+          data-cy="search-input"
+          type="text"
+          :placeholder="placeholder"
+        />
       </div>
     </label>
   </div>

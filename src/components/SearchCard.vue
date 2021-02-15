@@ -1,35 +1,33 @@
 <template>
-  <div>
-    <div class="search-card">
-      <div class="search-card-image">
-        <img :src="hero.image" alt="Hero">
+  <div class="search-card">
+    <div class="search-card-image">
+      <img :src="hero.image" alt="Hero">
+    </div>
+
+    <div class="search-card-details flex">
+      <div class="card-hero-name">
+        <p>
+          <b data-cy="card-hero-name">
+            {{ hero.name }}
+          </b>
+        </p>
       </div>
 
-      <div class="search-card-details flex">
-        <div class="card-hero-name">
-          <p>
-            <b>
-              {{ hero.name }}
-            </b>
-          </p>
-        </div>
-
-        <div class="card-hero-fav">
-          <button data-cy="fav-button" @click="handleFavoriteClick">
-            <img
-              v-if="isFavorite"
-              data-cy="fav-icon"
-              src="@/assets/fav.svg"
-              alt="Ícone herói favorito"
-            >
-            <img
-              v-else
-              data-cy="not-fav-icon"
-              src="@/assets/fav-outline.svg"
-              alt="Ícone herói favorito"
-            >
-          </button>
-        </div>
+      <div class="card-hero-fav">
+        <button data-cy="fav-button" @click="handleFavoriteClick">
+          <img
+            v-if="isFavorite"
+            data-cy="fav-icon"
+            src="@/assets/fav.svg"
+            alt="Ícone herói favorito"
+          >
+          <img
+            v-else
+            data-cy="not-fav-icon"
+            src="@/assets/fav-outline.svg"
+            alt="Ícone herói favorito"
+          >
+        </button>
       </div>
     </div>
   </div>

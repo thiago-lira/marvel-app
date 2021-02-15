@@ -5,7 +5,7 @@
     <section class="main-content">
       <SearchHeader :total-heroes="heroes.length" />
 
-      <SearchContainer :heroes="heroes" />
+      <SearchContainer :is-loading="isLoading" :heroes="heroes" />
     </section>
   </div>
 </template>
@@ -20,6 +20,7 @@ export default {
   name: 'Home',
   data() {
     return {
+      isLoading: false,
       term: '',
       heroes: [],
     };
@@ -52,14 +53,22 @@ export default {
       }));
     },
     getCharacters() {
+      this.isLoading = true;
       marvelService
         .getCharacters()
-        .then(this.mapHeroes);
+        .then(this.mapHeroes)
+        .finally(() => {
+          this.isLoading = false;
+        });
     },
     getCharactersByName() {
+      this.isLoading = true;
       marvelService
         .getCharactersByName(this.term)
-        .then(this.mapHeroes);
+        .then(this.mapHeroes)
+        .finally(() => {
+          this.isLoading = false;
+        });
     },
     handleInput(value) {
       this.term = value;
