@@ -5,7 +5,9 @@
         <SearchCard
           v-for="{ id, name, image } in heroes"
           :hero="{ name, image, id }"
+          :is-favorite="isFavorite(id)"
           :key="id"
+          @toggleFavorite="handleToggleFavorite"
         />
       </template>
     </div>
@@ -14,6 +16,9 @@
 
 <script>
 import SearchCard from '@/components/SearchCard.vue';
+import localstorage from '@/utils/localstorage';
+
+const lsHeroes = localstorage('MARVEL_HEROES_ID', []);
 
 export default {
   name: 'SearchContainer',
@@ -24,6 +29,31 @@ export default {
     heroes: {
       type: Array,
       required: true,
+    },
+  },
+  data() {
+    return {
+      favoritesId: lsHeroes.get(),
+    };
+  },
+  methods: {
+    isFavorite(idHero) {
+      return this.favoritesId.some((id) => id === idHero);
+    },
+    handleToggleFavorite({ id, name }) {
+      let message;
+      const indexHero = this.favoritesId.findIndex((idHero) => idHero === id);
+      if (indexHero !== -1) {
+        this.favoritesId.splice(indexHero, 1);
+        message = `${name} foi removido da sua lista de favoritos`;
+      } else if (this.favoritesId.length < 5) {
+        this.favoritesId.push(id);
+        message = `${name} foi adicionado à sua lista de favorito`;
+      } else {
+        message = 'Não foi possível adicionar à sua lista de favoritos pois o limite é de 5 personagens';
+      }
+      this.$addMessage(message);
+      lsHeroes.set(this.favoritesId);
     },
   },
 };

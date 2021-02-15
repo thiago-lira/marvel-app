@@ -15,8 +15,19 @@
         </div>
 
         <div class="card-hero-fav">
-          <button>
-            <img src="@/assets/fav-outline.svg" alt="Ícone herói favorito">
+          <button data-cy="fav-button" @click="handleFavoriteClick">
+            <img
+              v-if="isFavorite"
+              data-cy="fav-icon"
+              src="@/assets/fav.svg"
+              alt="Ícone herói favorito"
+            >
+            <img
+              v-else
+              data-cy="not-fav-icon"
+              src="@/assets/fav-outline.svg"
+              alt="Ícone herói favorito"
+            >
           </button>
         </div>
       </div>
@@ -28,9 +39,22 @@
 export default {
   name: 'SearchCard',
   props: {
+    isFavorite: {
+      type: Boolean,
+      required: true,
+    },
     hero: {
       type: Object,
       required: true,
+    },
+  },
+  methods: {
+    handleFavoriteClick() {
+      const payload = {
+        ...this.hero,
+        favorite: !this.isFavorite,
+      };
+      this.$emit('toggleFavorite', payload);
     },
   },
 };
@@ -44,6 +68,7 @@ export default {
   &-details {
     color: $dark-grey;
     font-size: 18px;
+    height: 50px;
     margin: 15px 0;
 
     button {
@@ -54,8 +79,18 @@ export default {
     }
   }
 
-  &-image img {
-    max-width: 100%;
+  &-image {
+    height: 200px;
+    text-align: center;
+    img {
+      display: inline-block;
+      max-height: 100%;
+      max-width: 100%;
+    }
+  }
+
+  .card-hero-name {
+    flex-grow: 1;
   }
 }
 </style>

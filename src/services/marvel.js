@@ -14,6 +14,6 @@ export default {
     return http.get('/v1/public/characters');
   },
   getCharactersByName(name) {
-    return http.get('/v1/public/characters', { params: { name } });
+    return http.get('/v1/public/characters', { params: { nameStartsWith: name } });
   },
 };
