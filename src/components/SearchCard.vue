@@ -15,9 +15,19 @@
         </div>
 
         <div class="card-hero-fav">
-          <button @click="handleFavoriteClick">
-            <img v-if="isFavorite" src="@/assets/fav.svg" alt="Ícone herói favorito">
-            <img v-else src="@/assets/fav-outline.svg" alt="Ícone herói favorito">
+          <button data-cy="fav-button" @click="handleFavoriteClick">
+            <img
+              v-if="isFavorite"
+              data-cy="fav-icon"
+              src="@/assets/fav.svg"
+              alt="Ícone herói favorito"
+            >
+            <img
+              v-else
+              data-cy="not-fav-icon"
+              src="@/assets/fav-outline.svg"
+              alt="Ícone herói favorito"
+            >
           </button>
         </div>
       </div>

@@ -1,6 +1,11 @@
 <template>
   <section>
-    <div v-for="{ id, message } in messages" :key="id" class="message">
+    <div
+      v-for="{ id, message } in messages"
+      :key="id"
+      class="message"
+      data-cy="toast"
+    >
       {{ message }}
     </div>
   </section>
