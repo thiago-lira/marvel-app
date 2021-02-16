@@ -1,20 +1,24 @@
-import { expect } from 'chai';
-import sinon from 'sinon';
 import localstorage from '@/utils/localstorage';
 
-global.localStorage = { getItem() {}, setItem() {} };
-const stubSetItem = sinon.stub(localStorage, 'setItem').callsFake(() => {});
-const stubGetItem = sinon.stub(localStorage, 'getItem').callsFake(() => '{}');
 const lsTest = localstorage('lsTest', []);
 
 describe('localstorage utils', () => {
+  beforeEach(() => {
+    jest.spyOn(Storage.prototype, 'setItem');
+    jest.spyOn(Storage.prototype, 'getItem');
+  });
+
+  afterEach(() => {
+    localStorage.setItem.mockRestore();
+  });
+
   it('should to set value in localStorage', () => {
-    lsTest.set('Ok');
-    expect(stubSetItem.getCall(0).args[1]).to.contains('Ok');
+    lsTest.set([]);
+    expect(global.localStorage.setItem).toHaveBeenCalledWith('lsTest', '[]');
   });
 
   it('should to get value in localStorage', () => {
     lsTest.get();
-    expect(stubGetItem.calledWith('lsTest')).to.equal(true);
+    expect(global.localStorage.getItem).toHaveBeenCalledWith('lsTest');
   });
 });

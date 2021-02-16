@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import { shallowMount } from '@vue/test-utils';
 import SearchContainer from '@/components/SearchContainer.vue';
 import SearchCard from '@/components/SearchCard.vue';
@@ -13,17 +12,18 @@ describe('SearchContainer.vue', () => {
         };
       },
       propsData: {
+        isLoading: false,
         heroes: [],
       },
     });
   });
 
   it('should to instantiate', () => {
-    expect(wrapper.exists()).to.equal(true);
+    expect(wrapper.exists()).toEqual(true);
   });
 
   it('should not to have characters card when heroes prop is empty', () => {
-    expect(wrapper.find('.search-card').exists()).to.equal(false);
+    expect(wrapper.find('.search-card').exists()).toEqual(false);
   });
 
   it('should to have characters card when heroes props is not empty', async () => {
@@ -33,7 +33,7 @@ describe('SearchContainer.vue', () => {
         { name: 'Loboverine', id: 321, image: 'path/to/image.jpg' },
       ],
     });
-    expect(wrapper.findAllComponents(SearchCard).length).to.equal(2);
+    expect(wrapper.findAllComponents(SearchCard).length).toEqual(2);
   });
 
   it('should include id character in favoritesId list', async () => {
@@ -46,7 +46,7 @@ describe('SearchContainer.vue', () => {
 
     await wrapper.vm.$nextTick();
 
-    expect(wrapper.vm.favoritesId).to.eql([123]);
+    expect(wrapper.vm.favoritesId).toEqual([123]);
   });
 
   it('should remove id character in favoritesId list', async () => {
@@ -62,7 +62,7 @@ describe('SearchContainer.vue', () => {
 
     await wrapper.vm.$nextTick();
 
-    expect(wrapper.vm.favoritesId).to.eql([]);
+    expect(wrapper.vm.favoritesId).toEqual([]);
   });
 
   it('should not include character id in favorites list when it already has 5 items', async () => {
@@ -78,6 +78,6 @@ describe('SearchContainer.vue', () => {
 
     await wrapper.vm.$nextTick();
 
-    expect(wrapper.vm.favoritesId).to.eql([1, 2, 3, 4, 5]);
+    expect(wrapper.vm.favoritesId).toEqual([1, 2, 3, 4, 5]);
   });
 });
