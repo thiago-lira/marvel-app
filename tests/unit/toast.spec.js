@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import { shallowMount } from '@vue/test-utils';
 import Toast from '@/components/Toast.vue';
 
@@ -9,6 +8,6 @@ describe('Toast.vue', () => {
   });
 
   it('should to render', () => {
-    expect(wrapper.exists()).to.equal(true);
+    expect(wrapper.exists()).toEqual(true);
   });
 });
