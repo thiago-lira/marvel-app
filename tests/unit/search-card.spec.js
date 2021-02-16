@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import { shallowMount } from '@vue/test-utils';
 import SearchCard from '@/components/SearchCard.vue';
 
@@ -20,15 +19,15 @@ describe('SearchCard.vue', () => {
   });
 
   it('should to render', async () => {
-    expect(wrapper.exists()).to.equal(true);
+    expect(wrapper.exists()).toEqual(true);
   });
 
   it('should to render the character name', () => {
-    expect(wrapper.text()).to.contains('Chico Xavier');
+    expect(wrapper.text()).toContain('Chico Xavier');
   });
 
   it('should to render the character image', () => {
-    expect(wrapper.find('img').attributes('src')).to.equal('path/to/image.jpg');
+    expect(wrapper.find('img').attributes('src')).toEqual('path/to/image.jpg');
   });
 
   it('should to emit "toggleFavorite" event', async () => {
@@ -41,6 +40,6 @@ describe('SearchCard.vue', () => {
       ...hero,
       favorite: true,
     };
-    expect(wrapper.emitted().toggleFavorite[0]).to.eql([expectedData]);
+    expect(wrapper.emitted().toggleFavorite[0]).toEqual([expectedData]);
   });
 });
