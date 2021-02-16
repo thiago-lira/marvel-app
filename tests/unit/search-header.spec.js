@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import { shallowMount } from '@vue/test-utils';
 import SearchHeader from '@/components/SearchHeader.vue';
 
@@ -13,16 +12,16 @@ describe('SearchHeader.vue', () => {
   });
 
   it('should to instantiate', () => {
-    expect(wrapper.exists()).to.equal(true);
+    expect(wrapper.exists()).toEqual(true);
   });
 
   it('should show a result message using plural', () => {
-    expect(wrapper.text()).to.include('Encontrados 2 heróis');
+    expect(wrapper.text()).toContain('Encontrados 2 heróis');
   });
 
   it('should show a result message using singular', async () => {
     await wrapper.setProps({ totalHeroes: 1 });
 
-    expect(wrapper.text()).to.include('Encontrado 1 herói');
+    expect(wrapper.text()).toContain('Encontrado 1 herói');
   });
 });
