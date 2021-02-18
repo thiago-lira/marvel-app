@@ -1,8 +1,8 @@
 <template>
   <section class="search-paginate">
     <ul>
-      <li v-for="page of totalPages" :key="page">
-        <button @click="handleClickPage(page)" data-page-button="5">
+      <li v-for="{ page } in paginate" :key="page">
+        <button @click="handleClickPage(page)" :data-page-button="page">
           {{ page }}
         </button>
       </li>
@@ -17,6 +17,29 @@ export default {
     totalPages: {
       type: Number,
       required: true,
+    },
+  },
+  computed: {
+    paginate() {
+      const { totalPages } = this;
+      let totalButtons = totalPages;
+      const range = Array.from(Array(totalButtons).keys());
+      if (totalPages > 5) {
+        totalButtons = 4;
+        let rightButtonText = totalPages - 2;
+        return Array.from(Array(totalButtons).keys())
+          .map((index) => {
+            let valuePage;
+            if (index < 2) {
+              valuePage = index + 1;
+            } else {
+              rightButtonText += 1;
+              valuePage = rightButtonText;
+            }
+            return { page: valuePage };
+          });
+      }
+      return range.map((index) => ({ page: index + 1 }));
     },
   },
   methods: {
