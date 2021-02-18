@@ -18,27 +18,16 @@ export default {
       type: Number,
       required: true,
     },
+    totalButtons: {
+      type: Number,
+      default: 5,
+    },
   },
   computed: {
     paginate() {
-      const { totalPages } = this;
-      let totalButtons = totalPages;
-      const range = Array.from(Array(totalButtons).keys());
-      if (totalPages > 5) {
-        totalButtons = 4;
-        let rightButtonText = totalPages - 2;
-        return Array.from(Array(totalButtons).keys())
-          .map((index) => {
-            let valuePage;
-            if (index < 2) {
-              valuePage = index + 1;
-            } else {
-              rightButtonText += 1;
-              valuePage = rightButtonText;
-            }
-            return { page: valuePage };
-          });
-      }
+      const { totalPages, totalButtons } = this;
+      const totalRange = totalPages > totalButtons ? totalButtons : totalPages;
+      const range = Array.from(Array(totalRange).keys());
       return range.map((index) => ({ page: index + 1 }));
     },
   },

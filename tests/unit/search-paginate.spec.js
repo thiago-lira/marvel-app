@@ -32,14 +32,13 @@ describe('SearchPaginate.vue', () => {
     expect(wrapper.emitted()['page-has-clicked'][0][0]).toEqual(1);
   });
 
-  // TODO: Para as 4 últimas páginas não deve exibir reticências no meio da paginação
-
-  it('should to render 4 buttons when totalPages > 5', async () => {
+  it('should to render 5 buttons when totalPages > 5', async () => {
     await wrapper.setProps({
       totalPages: 10,
+      totalButtons: 5,
     });
 
-    expect(wrapper.findAll('[data-page-button]').length).toBe(4);
+    expect(wrapper.findAll('[data-page-button]').length).toBe(5);
   });
 
   it('should to render "10" as text to the last button when totalPages > 5', async () => {
@@ -47,6 +46,6 @@ describe('SearchPaginate.vue', () => {
       totalPages: 10,
     });
 
-    expect(wrapper.findAll('[data-page-button]').at(3).text()).toBe('10');
+    expect(wrapper.findAll('[data-page-button]').at(4).text()).toBe('5');
   });
 });
