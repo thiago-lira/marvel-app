@@ -3,7 +3,11 @@
     <HeaderHome @input="handleInput" />
 
     <section class="main-content">
-      <SearchHeader :total-heroes="heroes.length" />
+      <SearchHeader
+        @clickedFav="handleClickedFav"
+        :total-heroes="heroes.length"
+        :only-fav-heroes="onlyFavHeroes"
+      />
 
       <SearchContainer :is-loading="isLoading" :heroes="heroes" />
 
@@ -35,6 +39,7 @@ export default {
       activePage: parseInt(this.$route.query.page, 10) || 1,
       charactersTotal: 0,
       charactersPerPage: 20,
+      onlyFavHeroes: false,
     };
   },
   components: {
@@ -63,6 +68,9 @@ export default {
     },
   },
   methods: {
+    handleClickedFav() {
+      this.onlyFavHeroes = !this.onlyFavHeroes;
+    },
     getParams() {
       return {
         limit: this.charactersPerPage,

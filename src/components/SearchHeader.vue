@@ -21,7 +21,8 @@
 
     <div class="search-only-favs-option">
       <button @click="handleFavClick" class="flex" data-fav-button>
-        <img src="@/assets/fav.svg" alt="Ícone favoritos">
+        <img v-if="onlyFavHeroes" src="@/assets/fav.svg" alt="Ícone favoritos">
+        <img v-else src="@/assets/fav-outline.svg" alt="Ícone favoritos">
 
         <p>Somente favoritos</p>
       </button>
@@ -33,6 +34,10 @@
 export default {
   name: 'SearchHeader',
   props: {
+    onlyFavHeroes: {
+      type: Boolean,
+      default: false,
+    },
     totalHeroes: {
       type: Number,
       required: true,
