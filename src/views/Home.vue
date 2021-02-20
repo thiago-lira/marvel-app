@@ -8,7 +8,11 @@
       <SearchContainer :is-loading="isLoading" :heroes="heroes" />
 
       <div class="paginate">
-        <SearchPaginate :totalPages="12" />
+        <SearchPaginate
+          @clicked-page="paginate"
+          :totalPages="totalPages"
+          :activePage="activePage"
+        />
       </div>
     </section>
   </div>
@@ -28,6 +32,9 @@ export default {
       isLoading: false,
       term: '',
       heroes: [],
+      activePage: 1,
+      charactersTotal: 0,
+      charactersPerPage: 20,
     };
   },
   components: {
@@ -50,18 +57,33 @@ export default {
       }, 400);
     },
   },
+  computed: {
+    totalPages() {
+      return Math.ceil(this.charactersTotal / this.charactersPerPage);
+    },
+  },
   methods: {
+    paginate(pageNumber) {
+      if (this.activePage === pageNumber) return;
+
+      this.activePage = pageNumber;
+      this.getCharacters({
+        limit: this.charactersPerPage,
+        offset: this.charactersPerPage * (pageNumber - 1),
+      });
+    },
     mapHeroes({ data }) {
+      this.charactersTotal = data.data.total;
       this.heroes = data.data.results.map(({ id, name, thumbnail: { extension, path } }) => ({
         id,
         name,
         image: `${path}.${extension}`,
       }));
     },
-    getCharacters() {
+    getCharacters(params = {}) {
       this.isLoading = true;
       marvelService
-        .getCharacters()
+        .getCharacters(params)
         .then(this.mapHeroes)
         .finally(() => {
           this.isLoading = false;
