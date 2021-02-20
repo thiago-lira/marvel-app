@@ -1,0 +1,13 @@
+language: node_js
+
+node_js:
+  - 14
+
+cache:
+  npm: false
+
+before_script:
+  npm run build
+
+script:
+  npm install surge && surge ./dist $DOMAIN
