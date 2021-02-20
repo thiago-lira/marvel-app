@@ -58,12 +58,30 @@ describe('SearchPaginate.vue', () => {
     expect(wrapper.find('[data-page-button]').text()).toEqual('4');
   });
 
-  it('should to render button just up to totalPages', () => {
-    wrapper.setProps({
+  it('should to render the last "totalButtons" when the difference "totalButtons - activebutton" is less than "totalButtons" prop', async () => {
+    await wrapper.setProps({
       totalPages: 15,
       activePage: 13,
     });
 
-    expect(wrapper.findAll('[data-page-button]').length).toEqual(3);
+    expect(wrapper.findAll('[data-page-button]').length).toEqual(5);
+  });
+
+  it('should to render 11 as value of the first button', async () => {
+    await wrapper.setProps({
+      totalPages: 15,
+      activePage: 13,
+    });
+
+    expect(wrapper.find('[data-page-button]').text()).toEqual('11');
+  });
+
+  it('should to render 15 as value of the last button', async () => {
+    await wrapper.setProps({
+      totalPages: 15,
+      activePage: 13,
+    });
+
+    expect(wrapper.findAll('[data-page-button]').at(4).text()).toEqual('15');
   });
 });

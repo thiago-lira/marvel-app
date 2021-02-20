@@ -31,22 +31,29 @@ export default {
   },
   computed: {
     paginate() {
-      const buttonsData = this.getNextPages().map((index) => ({ page: index }));
+      const buttonsData = this.getButtonsText().map((text) => ({ page: text }));
 
       return buttonsData;
     },
   },
   methods: {
-    getNextPages() {
+    getButtonsText() {
       const { activePage, totalPages, totalButtons } = this;
-      const diff = totalPages - activePage;
+      const remainingPages = totalPages - activePage;
 
-      let lastPage = activePage + totalButtons;
-      if (diff <= totalButtons) {
-        lastPage = activePage + diff + 1;
+      if (remainingPages < totalButtons) {
+        const lastPage = totalPages + 1;
+        let firstPage = totalButtons - lastPage;
+
+        if (totalPages > totalButtons) {
+          firstPage = lastPage - totalButtons;
+        }
+
+        return range(firstPage, lastPage);
       }
-      const pagesNumbers = range(activePage, lastPage);
-      return pagesNumbers;
+
+      const lastPage = activePage + totalButtons;
+      return range(activePage, lastPage);
     },
     handleClickPage(page) {
       this.$emit('page-has-clicked', page);
