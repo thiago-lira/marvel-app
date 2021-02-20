@@ -22,13 +22,29 @@ export default {
       type: Number,
       default: 5,
     },
+    activePage: {
+      type: Number,
+      default: 1,
+    },
   },
   computed: {
     paginate() {
-      const { totalPages, totalButtons } = this;
-      const totalRange = totalPages > totalButtons ? totalButtons : totalPages;
+      const { totalPages, totalButtons, activePage } = this;
+      let totalRange;
+      if (totalPages > totalButtons) {
+        totalRange = totalButtons;
+      } else {
+        const diff = totalPages - activePage;
+        if (diff < totalButtons) {
+          totalRange = diff + 1;
+        } else {
+          totalRange = totalPages;
+        }
+      }
       const range = Array.from(Array(totalRange).keys());
-      return range.map((index) => ({ page: index + 1 }));
+      range.length = totalRange;
+      const result = range.map((index) => ({ page: index + activePage }));
+      return result;
     },
   },
   methods: {

@@ -48,4 +48,22 @@ describe('SearchPaginate.vue', () => {
 
     expect(wrapper.findAll('[data-page-button]').at(4).text()).toBe('5');
   });
+
+  it('should has active page as first button', async () => {
+    await wrapper.setProps({
+      totalPages: 15,
+      activePage: 4,
+    });
+
+    expect(wrapper.find('[data-page-button]').text()).toEqual('4');
+  });
+
+  it('should to render button just up to totalPages', () => {
+    wrapper.setProps({
+      totalPages: 15,
+      activePage: 13,
+    });
+
+    expect(wrapper.findAll('[data-page-button]').length).toEqual(3);
+  });
 });
