@@ -6,6 +6,14 @@
       <SearchHeader :total-heroes="heroes.length" />
 
       <SearchContainer :is-loading="isLoading" :heroes="heroes" />
+
+      <div class="paginate">
+        <SearchPaginate
+          @clicked-page="paginate"
+          :totalPages="totalPages"
+          :activePage="activePage"
+        />
+      </div>
     </section>
   </div>
 </template>
@@ -14,6 +22,7 @@
 import HeaderHome from '@/components/HeaderHome.vue';
 import SearchHeader from '@/components/SearchHeader.vue';
 import SearchContainer from '@/components/SearchContainer.vue';
+import SearchPaginate from '@/components/SearchPaginate.vue';
 import marvelService from '@/services/marvel';
 
 export default {
@@ -23,12 +32,16 @@ export default {
       isLoading: false,
       term: '',
       heroes: [],
+      activePage: parseInt(this.$route.query.page, 10) || 1,
+      charactersTotal: 0,
+      charactersPerPage: 20,
     };
   },
   components: {
     HeaderHome,
     SearchHeader,
     SearchContainer,
+    SearchPaginate,
   },
   watch: {
     term(newValue) {
@@ -44,18 +57,42 @@ export default {
       }, 400);
     },
   },
+  computed: {
+    totalPages() {
+      return Math.ceil(this.charactersTotal / this.charactersPerPage);
+    },
+  },
   methods: {
+    getParams() {
+      return {
+        limit: this.charactersPerPage,
+        offset: this.charactersPerPage * (this.activePage - 1),
+      };
+    },
+    paginate(pageNumber) {
+      if (this.activePage === pageNumber) return;
+
+      this.activePage = pageNumber;
+      this.getCharacters(this.getParams());
+    },
     mapHeroes({ data }) {
+      this.charactersTotal = data.data.total;
       this.heroes = data.data.results.map(({ id, name, thumbnail: { extension, path } }) => ({
         id,
         name,
         image: `${path}.${extension}`,
       }));
     },
-    getCharacters() {
+    getCharacters(params = {}) {
       this.isLoading = true;
+      const { activePage } = this;
+
+      if (parseInt(this.$route.query.page, 10) !== activePage) {
+        this.$router.push({ query: { page: activePage } });
+      }
+
       marvelService
-        .getCharacters()
+        .getCharacters(params)
         .then(this.mapHeroes)
         .finally(() => {
           this.isLoading = false;
@@ -75,7 +112,7 @@ export default {
     },
   },
   mounted() {
-    this.getCharacters();
+    this.getCharacters(this.getParams());
   },
 };
 </script>
@@ -106,5 +143,10 @@ export default {
       border-radius: 50%;
     }
   }
+}
+
+.paginate {
+  text-align: center;
+  margin: 30px 0;
 }
 </style>
