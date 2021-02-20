@@ -30,24 +30,31 @@ export default {
   computed: {
     paginate() {
       const { totalPages, totalButtons, activePage } = this;
-      let totalRange;
-      if (totalPages > totalButtons) {
-        totalRange = totalButtons;
-      } else {
-        const diff = totalPages - activePage;
-        if (diff < totalButtons) {
-          totalRange = diff + 1;
-        } else {
-          totalRange = totalPages;
-        }
+      let totalRange = totalButtons;
+
+      if (totalPages < totalButtons) {
+        totalRange = this.getButtonsRemaining();
       }
+
       const range = Array.from(Array(totalRange).keys());
       range.length = totalRange;
-      const result = range.map((index) => ({ page: index + activePage }));
-      return result;
+      const buttonsData = range.map((index) => ({ page: index + activePage }));
+
+      return buttonsData;
     },
   },
   methods: {
+    getButtonsRemaining() {
+      const { totalPages, totalButtons, activePage } = this;
+      const diff = totalPages - activePage;
+      let totalRange = totalPages;
+
+      if (diff < totalButtons) {
+        totalRange = diff + 1;
+      }
+
+      return totalRange;
+    },
     handleClickPage(page) {
       this.$emit('page-has-clicked', page);
     },
