@@ -93,4 +93,28 @@ describe('SearchPaginate.vue', () => {
 
     expect(wrapper.find('.active').text()).toEqual('13');
   });
+
+  it('should to render button to go to the last page', () => {
+    expect(wrapper.find('[data-last-page]').exists()).toEqual(true);
+  });
+
+  it('should not to render button to go to the last page when is already in last page', async () => {
+    await wrapper.setProps({
+      totalPages: 15,
+      activePage: 15,
+    });
+    expect(wrapper.find('[data-last-page]').exists()).toEqual(false);
+  });
+
+  it('should to render button to go to the first page', async () => {
+    await wrapper.setProps({
+      totalPages: 5,
+      activePage: 2,
+    });
+    expect(wrapper.find('[data-first-page]').exists()).toEqual(true);
+  });
+
+  it('should not to render button to go to the first page when is already in first page', () => {
+    expect(wrapper.find('[data-first-page]').exists()).toEqual(false);
+  });
 });

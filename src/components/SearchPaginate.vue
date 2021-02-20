@@ -1,6 +1,14 @@
 <template>
   <section class="search-paginate">
     <ul>
+      <li v-if="!isFirstPage">
+        <button
+          @click="handleClickPage(1)"
+          :data-first-page="1"
+        >
+          &lt;&lt;
+        </button>
+      </li>
       <li v-for="{ page, isActive } in paginate" :key="page">
         <button
           @click="handleClickPage(page)"
@@ -8,6 +16,14 @@
           :class="{ active: isActive}"
         >
           {{ page }}
+        </button>
+      </li>
+      <li v-if="!isLastPage">
+        <button
+          @click="handleClickPage(totalPages)"
+          :data-last-page="totalPages"
+        >
+          &gt;&gt;
         </button>
       </li>
     </ul>
@@ -34,6 +50,12 @@ export default {
     },
   },
   computed: {
+    isFirstPage() {
+      return this.activePage === 1;
+    },
+    isLastPage() {
+      return this.activePage === this.totalPages;
+    },
     paginate() {
       const buttonsData = this.getButtonsText()
         .map((pageNumber) => ({ page: pageNumber, isActive: pageNumber === this.activePage }));
@@ -73,6 +95,20 @@ export default {
 
   ul {
     display: flex;
+  }
+
+  [data-first-page],
+  [data-last-page] {
+    background: $dark-grey;
+    border: none;
+    border-radius: 5px;
+    color: #fff;
+    font-size: 14px;
+    padding: 8px 14px;
+
+    &:hover {
+      background: $light-grey;
+    }
   }
 
   [data-page-button] {
