@@ -9,6 +9,5 @@ cache:
 before_script:
   npm run build
 
-
 script:
   npm install surge && surge ./dist $DOMAIN
