@@ -7,5 +7,5 @@ before_script:
   npm run build
 
 
-after_script:
-  npm install surge && surge ./public $DOMAIN
+script:
+  npm install surge && surge ./dist $DOMAIN
