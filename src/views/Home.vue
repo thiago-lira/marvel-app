@@ -32,7 +32,7 @@ export default {
       isLoading: false,
       term: '',
       heroes: [],
-      activePage: 1,
+      activePage: parseInt(this.$route.query.page, 10) || 1,
       charactersTotal: 0,
       charactersPerPage: 20,
     };
@@ -63,14 +63,17 @@ export default {
     },
   },
   methods: {
+    getParams() {
+      return {
+        limit: this.charactersPerPage,
+        offset: this.charactersPerPage * (this.activePage - 1),
+      };
+    },
     paginate(pageNumber) {
       if (this.activePage === pageNumber) return;
 
       this.activePage = pageNumber;
-      this.getCharacters({
-        limit: this.charactersPerPage,
-        offset: this.charactersPerPage * (pageNumber - 1),
-      });
+      this.getCharacters(this.getParams());
     },
     mapHeroes({ data }) {
       this.charactersTotal = data.data.total;
@@ -82,6 +85,11 @@ export default {
     },
     getCharacters(params = {}) {
       this.isLoading = true;
+
+      if (parseInt(this.$route.query.page, 10) !== this.activePage) {
+        this.$router.push({ query: { page: this.activePage } });
+      }
+
       marvelService
         .getCharacters(params)
         .then(this.mapHeroes)
@@ -103,7 +111,7 @@ export default {
     },
   },
   mounted() {
-    this.getCharacters();
+    this.getCharacters(this.getParams());
   },
 };
 </script>
