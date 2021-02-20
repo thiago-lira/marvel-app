@@ -85,9 +85,10 @@ export default {
     },
     getCharacters(params = {}) {
       this.isLoading = true;
+      const { activePage } = this;
 
-      if (parseInt(this.$route.query.page, 10) !== this.activePage) {
-        this.$router.push({ query: { page: this.activePage } });
+      if (parseInt(this.$route.query.page, 10) !== activePage) {
+        this.$router.push({ query: { page: activePage } });
       }
 
       marvelService
