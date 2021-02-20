@@ -6,6 +6,10 @@
       <SearchHeader :total-heroes="heroes.length" />
 
       <SearchContainer :is-loading="isLoading" :heroes="heroes" />
+
+      <div class="paginate">
+        <SearchPaginate :totalPages="12" />
+      </div>
     </section>
   </div>
 </template>
@@ -14,6 +18,7 @@
 import HeaderHome from '@/components/HeaderHome.vue';
 import SearchHeader from '@/components/SearchHeader.vue';
 import SearchContainer from '@/components/SearchContainer.vue';
+import SearchPaginate from '@/components/SearchPaginate.vue';
 import marvelService from '@/services/marvel';
 
 export default {
@@ -29,6 +34,7 @@ export default {
     HeaderHome,
     SearchHeader,
     SearchContainer,
+    SearchPaginate,
   },
   watch: {
     term(newValue) {
@@ -106,5 +112,10 @@ export default {
       border-radius: 50%;
     }
   }
+}
+
+.paginate {
+  text-align: center;
+  margin: 30px 0;
 }
 </style>

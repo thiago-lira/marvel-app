@@ -84,4 +84,13 @@ describe('SearchPaginate.vue', () => {
 
     expect(wrapper.findAll('[data-page-button]').at(4).text()).toEqual('15');
   });
+
+  it('should to add active class to the activePage button', async () => {
+    await wrapper.setProps({
+      totalPages: 15,
+      activePage: 13,
+    });
+
+    expect(wrapper.find('.active').text()).toEqual('13');
+  });
 });
