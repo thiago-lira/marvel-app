@@ -24,4 +24,13 @@ describe('SearchHeader.vue', () => {
 
     expect(wrapper.text()).toContain('Encontrado 1 herói');
   });
+
+  it('should show to emit an event called "clickedFav" when click on fav button"', async () => {
+    const favButton = wrapper.find('[data-fav-button]');
+    favButton.trigger('click');
+
+    await wrapper.vm.$nextTick();
+
+    expect(wrapper.emitted().clickedFav[0]).toEqual([]);
+  });
 });

@@ -20,7 +20,7 @@
     </div>
 
     <div class="search-only-favs-option">
-      <button class="flex">
+      <button @click="handleFavClick" class="flex" data-fav-button>
         <img src="@/assets/fav.svg" alt="Ícone favoritos">
 
         <p>Somente favoritos</p>
@@ -44,6 +44,11 @@ export default {
       return (totalHeroes > 1)
         ? `Encontrados ${totalHeroes} heróis`
         : `Encontrado ${totalHeroes} herói`;
+    },
+  },
+  methods: {
+    handleFavClick() {
+      this.$emit('clickedFav');
     },
   },
 };
