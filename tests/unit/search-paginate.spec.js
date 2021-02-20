@@ -49,16 +49,31 @@ describe('SearchPaginate.vue', () => {
     expect(wrapper.findAll('[data-page-button]').at(4).text()).toBe('5');
   });
 
-  it('should has active page as first button', async () => {
+  it('should has active page at the middle when totalPages is greater than totalButtons', async () => {
+    const totalButtons = 5;
+    const middle = Math.floor(totalButtons / 2);
     await wrapper.setProps({
       totalPages: 15,
       activePage: 4,
+      totalButtons,
     });
 
-    expect(wrapper.find('[data-page-button]').text()).toEqual('4');
+    expect(wrapper.findAll('[data-page-button]').at(middle).text()).toEqual('4');
   });
 
-  it('should to render the last "totalButtons" when the difference "totalButtons - activebutton" is less than "totalButtons" prop', async () => {
+  it('should has active page at the middle when totalPages is less than totalPages', async () => {
+    const totalButtons = 5;
+    const middle = Math.floor(totalButtons / 2);
+    await wrapper.setProps({
+      totalPages: 75,
+      activePage: 71,
+      totalButtons,
+    });
+
+    expect(wrapper.findAll('[data-page-button]').at(middle).text()).toEqual('71');
+  });
+
+  it('should to render the last "totalButtons" when the difference "totalButtons - activeButton" is less than "totalButtons" prop', async () => {
     await wrapper.setProps({
       totalPages: 15,
       activePage: 13,

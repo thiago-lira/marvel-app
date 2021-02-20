@@ -68,19 +68,23 @@ export default {
       const { activePage, totalPages, totalButtons } = this;
       const remainingPages = totalPages - activePage;
 
-      if (remainingPages < totalButtons) {
-        const lastPage = totalPages + 1;
-        let firstPage = totalButtons - lastPage;
+      if (remainingPages < totalButtons - 1) {
+        const lastButton = totalPages + 1;
+        let firstButton = totalButtons - lastButton;
 
         if (totalPages > totalButtons) {
-          firstPage = lastPage - totalButtons;
+          firstButton = lastButton - totalButtons;
         }
 
-        return range(firstPage, lastPage);
+        return range(firstButton, lastButton);
       }
 
-      const lastPage = activePage + totalButtons;
-      return range(activePage, lastPage);
+      const middleButton = Math.floor(totalButtons / 2);
+      if (middleButton < activePage && middleButton < remainingPages) {
+        return range(activePage - middleButton, activePage + middleButton + 1);
+      }
+
+      return range(activePage, activePage + totalButtons);
     },
     handleClickPage(page) {
       this.$emit('clicked-page', page);
