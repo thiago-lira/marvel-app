@@ -29,7 +29,7 @@ describe('SearchPaginate.vue', () => {
 
     await wrapper.vm.$nextTick();
 
-    expect(wrapper.emitted()['page-has-clicked'][0][0]).toEqual(1);
+    expect(wrapper.emitted()['clicked-page'][0][0]).toEqual(1);
   });
 
   it('should to render 5 buttons when totalPages > 5', async () => {

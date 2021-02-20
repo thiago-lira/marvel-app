@@ -61,7 +61,7 @@ export default {
       return range(activePage, lastPage);
     },
     handleClickPage(page) {
-      this.$emit('page-has-clicked', page);
+      this.$emit('clicked-page', page);
     },
   },
 };
