@@ -97,7 +97,7 @@ export default {
       const favsIds = favHeroesLS.get();
 
       const heroesAlreadyFetched = this.heroes.filter(({ id }) => favsIds.includes(id));
-      const idsHeroesAlreadyFetched = this.heroes.map(({ id }) => id);
+      const idsHeroesAlreadyFetched = heroesAlreadyFetched.map(({ id }) => id);
       const idsHeroesToFetch = favsIds.filter((id) => !idsHeroesAlreadyFetched.includes(id));
       const promises = this.createFavHeroesPromises(idsHeroesToFetch);
 
