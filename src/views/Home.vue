@@ -71,27 +71,34 @@ export default {
     },
   },
   methods: {
-    getFavHeroes() {
-      const heroesIds = favHeroesLS.get();
-      const promises = [];
-
-      this.isLoading = true;
-
-      heroesIds.forEach((id) => {
-        promises.push(marvelService.getCharacterById(id));
-      });
-
+    setFavHeroes(promises) {
       const favHeroes = [];
-      Promise.all(promises)
+
+      return Promise.all(promises)
         .then((values) => {
           values.forEach(({ data }) => {
             favHeroes.push(data.data.results[0]);
           });
           this.heroes = this.parseHeroesData(favHeroes);
-        })
-        .finally(() => {
-          this.isLoading = false;
         });
+    },
+    createFavHeroesPromises() {
+      const heroesIds = favHeroesLS.get();
+      const promises = [];
+
+      heroesIds.forEach((id) => {
+        promises.push(marvelService.getCharacterById(id));
+      });
+
+      return promises;
+    },
+    getFavHeroes() {
+      this.isLoading = true;
+
+      const promises = this.createFavHeroesPromises();
+      this.setFavoHeroes(promises).finally(() => {
+        this.isLoading = false;
+      });
     },
     handleClickedFav() {
       this.onlyFavHeroes = !this.onlyFavHeroes;
