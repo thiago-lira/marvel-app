@@ -96,7 +96,7 @@ export default {
       this.isLoading = true;
 
       const promises = this.createFavHeroesPromises();
-      this.setFavoHeroes(promises).finally(() => {
+      this.setFavHeroes(promises).finally(() => {
         this.isLoading = false;
       });
     },
