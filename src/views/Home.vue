@@ -5,6 +5,7 @@
     <section class="main-content">
       <SearchHeader
         @clickedFav="handleClickedFav"
+        @toggleSort="handleToggleSort"
         :total-heroes="heroes.length"
         :only-fav-heroes="onlyFavHeroes"
       />
@@ -48,6 +49,7 @@ export default {
       charactersTotal: 0,
       charactersPerPage: 20,
       onlyFavHeroes: false,
+      isSortAsc: true,
     };
   },
   components: {
@@ -71,11 +73,18 @@ export default {
     },
   },
   computed: {
+    sort() {
+      return this.isSortAsc ? 'name' : '-name';
+    },
     totalPages() {
       return Math.ceil(this.charactersTotal / this.charactersPerPage);
     },
   },
   methods: {
+    handleToggleSort() {
+      this.isSortAsc = !this.isSortAsc;
+      this.getCharacters(this.getParams());
+    },
     handleToggleFavorite({ id: idPayload }) {
       if (this.onlyFavHeroes) {
         this.heroes = this.heroes.filter(({ id }) => id !== idPayload);
@@ -132,6 +141,7 @@ export default {
     },
     getParams() {
       return {
+        orderBy: this.sort,
         limit: this.charactersPerPage,
         offset: this.charactersPerPage * (this.activePage - 1),
       };
