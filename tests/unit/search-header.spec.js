@@ -1,5 +1,6 @@
 import { shallowMount } from '@vue/test-utils';
 import SearchHeader from '@/components/SearchHeader.vue';
+import Toggle from '@/components/Toggle.vue';
 
 describe('SearchHeader.vue', () => {
   let wrapper;
@@ -32,5 +33,14 @@ describe('SearchHeader.vue', () => {
     await wrapper.vm.$nextTick();
 
     expect(wrapper.emitted().clickedFav[0]).toEqual([]);
+  });
+
+  it('should to emit "toggleSort" when to listen "toogle" event', async () => {
+    const toggle = wrapper.findComponent(Toggle);
+    toggle.vm.$emit('toggle');
+
+    await wrapper.vm.$nextTick();
+
+    expect(wrapper.emitted().toggleSort[0]).toEqual([]);
   });
 });

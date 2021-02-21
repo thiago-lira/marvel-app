@@ -7,16 +7,16 @@
     </div>
 
     <div class="search-sorting flex">
-      <img src="@/assets/hero.svg" alt="Ícone organizar por nome">
-
-      <span class="sorting-long-description">
-        Ordenar por nome
+      <span class="sorting-long-description hide-640 flex">
+        <img src="@/assets/hero.svg" alt="Ícone organizar por nome">
+        Ordenar por nome -
       </span>
-      - A/Z
 
-      <div class="toggle">
-        <span />
-      </div>
+      <span>
+        A/Z
+      </span>
+
+      <Toggle @toggle="handleToggle" />
     </div>
 
     <div class="search-only-favs-option">
@@ -24,15 +24,20 @@
         <img v-if="onlyFavHeroes" src="@/assets/fav.svg" alt="Ícone favoritos">
         <img v-else src="@/assets/fav-outline.svg" alt="Ícone favoritos">
 
-        <p>Somente favoritos</p>
+        <p class="hide-640">Somente favoritos</p>
       </button>
     </div>
   </div>
 </template>
 
 <script>
+import Toggle from '@/components/Toggle.vue';
+
 export default {
   name: 'SearchHeader',
+  components: {
+    Toggle,
+  },
   props: {
     onlyFavHeroes: {
       type: Boolean,
@@ -52,6 +57,9 @@ export default {
     },
   },
   methods: {
+    handleToggle() {
+      this.$emit('toggleSort');
+    },
     handleFavClick() {
       this.$emit('clickedFav');
     },
@@ -72,9 +80,6 @@ export default {
       margin-right: 15px;
     }
 
-    .toggle {
-      margin-left: 15px;
-    }
     .search-only-favs-option {
       button {
         background: none;
@@ -95,6 +100,16 @@ export default {
     flex-grow: 1;
     font-size: 16px;
   }
-
 }
+
+.sorting-long-description {
+  margin-right: 5px;
+}
+
+.hide-640 {
+  @media (max-width: 640px) {
+    display: none;
+  }
+}
+
 </style>
