@@ -6,7 +6,8 @@ describe('Toggle.vue', () => {
       .get('[data-cy=toggle]')
       .click();
 
-    cy.wait(2000);
+    // TODO: change this
+    cy.wait(3000);
 
     cy
       .get('.search-card')
