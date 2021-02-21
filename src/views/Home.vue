@@ -9,7 +9,11 @@
         :only-fav-heroes="onlyFavHeroes"
       />
 
-      <SearchContainer :is-loading="isLoading" :heroes="heroes" />
+      <SearchContainer
+        @toggleFavorite="handleToggleFavorite"
+        :is-loading="isLoading"
+        :heroes="heroes"
+      />
 
       <div class="paginate">
         <SearchPaginate
@@ -71,6 +75,11 @@ export default {
     },
   },
   methods: {
+    handleToggleFavorite({ id: idPayload }) {
+      if (this.onlyFavHeroes) {
+        this.heroes = this.heroes.filter(({ id }) => id !== idPayload);
+      }
+    },
     fetchFavHeroes(promises) {
       const favHeroes = [];
 
