@@ -14,7 +14,7 @@
       </span>
       - A/Z
 
-      <Toggle />
+      <Toggle @toggle="handleToggle" />
     </div>
 
     <div class="search-only-favs-option">
@@ -55,6 +55,9 @@ export default {
     },
   },
   methods: {
+    handleToggle() {
+      this.$emit('toggleSort');
+    },
     handleFavClick() {
       this.$emit('clickedFav');
     },
