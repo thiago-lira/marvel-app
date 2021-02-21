@@ -11,7 +11,11 @@
         <img src="@/assets/hero.svg" alt="Ícone organizar por nome">
         Ordenar por nome -
       </span>
-      A/Z
+
+      <span>
+        A/Z
+      </span>
+
       <Toggle @toggle="handleToggle" />
     </div>
 

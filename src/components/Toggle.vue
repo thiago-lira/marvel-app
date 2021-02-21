@@ -3,6 +3,7 @@
     <a
       @click.prevent="handleClick"
       :class="{ active: currentActive }"
+      data-cy="toggle"
       href="#"
     />
   </div>
