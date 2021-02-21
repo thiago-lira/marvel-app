@@ -63,7 +63,7 @@ export default {
       // TODO: move to function
       setTimeout(() => {
         if (newValue === '') {
-          this.getCharacters();
+          this.fetchCharacters();
           return;
         }
         if (this.term === newValue) {
@@ -81,9 +81,12 @@ export default {
     },
   },
   methods: {
+    fetchCharacters() {
+      this.getCharacters(this.getParams());
+    },
     handleToggleSort() {
       this.isSortAsc = !this.isSortAsc;
-      this.getCharacters(this.getParams());
+      this.fetchCharacters();
     },
     handleToggleFavorite({ id: idPayload }) {
       if (this.onlyFavHeroes) {
@@ -136,7 +139,7 @@ export default {
       if (this.onlyFavHeroes) {
         this.getFavHeroes();
       } else {
-        this.getCharacters(this.getParams());
+        this.fetchCharacters();
       }
     },
     getParams() {
@@ -150,7 +153,7 @@ export default {
       if (this.activePage === pageNumber) return;
 
       this.activePage = pageNumber;
-      this.getCharacters(this.getParams());
+      this.fetchCharacters();
     },
     parseHeroesData(heroesData) {
       return heroesData.map(({ id, name, thumbnail: { extension, path } }) => ({
@@ -192,7 +195,7 @@ export default {
     },
   },
   mounted() {
-    this.getCharacters(this.getParams());
+    this.fetchCharacters();
   },
 };
 </script>
