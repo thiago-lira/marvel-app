@@ -87,11 +87,7 @@ export default {
           values.forEach(({ data }) => {
             favHeroes.push(data.data.results[0]);
           });
-          this.heroes = favHeroes.map(({ id, name, thumbnail: { extension, path } }) => ({
-            id,
-            name,
-            image: `${path}.${extension}`,
-          }));
+          this.heroes = this.parseHeroesData(favHeroes);
         })
         .finally(() => {
           this.isLoading = false;
@@ -117,13 +113,16 @@ export default {
       this.activePage = pageNumber;
       this.getCharacters(this.getParams());
     },
-    mapHeroes({ data }) {
-      this.charactersTotal = data.data.total;
-      this.heroes = data.data.results.map(({ id, name, thumbnail: { extension, path } }) => ({
+    parseHeroesData(heroesData) {
+      return heroesData.map(({ id, name, thumbnail: { extension, path } }) => ({
         id,
         name,
         image: `${path}.${extension}`,
       }));
+    },
+    setResultsData({ data }) {
+      this.charactersTotal = data.data.total;
+      this.heroes = this.parseHeroesData(data.data.results);
     },
     getCharacters(params = {}) {
       this.isLoading = true;
@@ -135,7 +134,7 @@ export default {
 
       marvelService
         .getCharacters(params)
-        .then(this.mapHeroes)
+        .then(this.setResultsData)
         .finally(() => {
           this.isLoading = false;
         });
@@ -144,7 +143,7 @@ export default {
       this.isLoading = true;
       marvelService
         .getCharactersByName(this.term)
-        .then(this.mapHeroes)
+        .then(this.setResultsData)
         .finally(() => {
           this.isLoading = false;
         });
