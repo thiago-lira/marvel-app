@@ -14,9 +14,7 @@
       </span>
       - A/Z
 
-      <div class="toggle">
-        <span />
-      </div>
+      <Toggle />
     </div>
 
     <div class="search-only-favs-option">
@@ -31,8 +29,13 @@
 </template>
 
 <script>
+import Toggle from '@/components/Toggle.vue';
+
 export default {
   name: 'SearchHeader',
+  components: {
+    Toggle,
+  },
   props: {
     onlyFavHeroes: {
       type: Boolean,
@@ -72,9 +75,6 @@ export default {
       margin-right: 15px;
     }
 
-    .toggle {
-      margin-left: 15px;
-    }
     .search-only-favs-option {
       button {
         background: none;

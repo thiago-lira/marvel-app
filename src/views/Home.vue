@@ -194,27 +194,6 @@ export default {
   min-width: 375px;
 }
 
-.toggle {
-  span {
-    display: inline-block;
-    background: $light-grey;
-    width: 50px;
-    height: 20px;
-    border: 5px solid $light-grey;
-    border-radius: 35px;
-
-    &:before {
-      background: $main-color;
-      box-shadow: 0 2px 3px lighten($main-color, 15%);
-      content: '';
-      height: 20px;
-      width: 20px;
-      position: absolute;
-      border-radius: 50%;
-    }
-  }
-}
-
 .paginate {
   text-align: center;
   margin: 30px 0;
