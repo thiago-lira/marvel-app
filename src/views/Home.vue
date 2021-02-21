@@ -28,6 +28,9 @@ import SearchHeader from '@/components/SearchHeader.vue';
 import SearchContainer from '@/components/SearchContainer.vue';
 import SearchPaginate from '@/components/SearchPaginate.vue';
 import marvelService from '@/services/marvel';
+import localstorageUtil from '@/utils/localstorage';
+
+const favHeroesLS = localstorageUtil('MARVEL_HEROES_ID', []);
 
 export default {
   name: 'Home',
@@ -68,8 +71,39 @@ export default {
     },
   },
   methods: {
+    getFavHeroes() {
+      const heroesIds = favHeroesLS.get();
+      const promises = [];
+
+      this.isLoading = true;
+
+      heroesIds.forEach((id) => {
+        promises.push(marvelService.getCharacterById(id));
+      });
+
+      const favHeroes = [];
+      Promise.all(promises)
+        .then((values) => {
+          values.forEach(({ data }) => {
+            favHeroes.push(data.data.results[0]);
+          });
+          this.heroes = favHeroes.map(({ id, name, thumbnail: { extension, path } }) => ({
+            id,
+            name,
+            image: `${path}.${extension}`,
+          }));
+        })
+        .finally(() => {
+          this.isLoading = false;
+        });
+    },
     handleClickedFav() {
       this.onlyFavHeroes = !this.onlyFavHeroes;
+      if (this.onlyFavHeroes) {
+        this.getFavHeroes();
+      } else {
+        this.getCharacters(this.getParams());
+      }
     },
     getParams() {
       return {
