@@ -71,7 +71,7 @@ export default {
     },
   },
   methods: {
-    setFavHeroes(promises) {
+    fetchFavHeroes(promises) {
       const favHeroes = [];
 
       return Promise.all(promises)
@@ -79,11 +79,11 @@ export default {
           values.forEach(({ data }) => {
             favHeroes.push(data.data.results[0]);
           });
-          this.heroes = this.parseHeroesData(favHeroes);
+
+          return Promise.resolve(favHeroes);
         });
     },
-    createFavHeroesPromises() {
-      const heroesIds = favHeroesLS.get();
+    createFavHeroesPromises(heroesIds) {
       const promises = [];
 
       heroesIds.forEach((id) => {
@@ -94,11 +94,23 @@ export default {
     },
     getFavHeroes() {
       this.isLoading = true;
+      const favsIds = favHeroesLS.get();
 
-      const promises = this.createFavHeroesPromises();
-      this.setFavHeroes(promises).finally(() => {
-        this.isLoading = false;
-      });
+      const heroesAlreadyFetched = this.heroes.filter(({ id }) => favsIds.includes(id));
+      const idsHeroesAlreadyFetched = this.heroes.map(({ id }) => id);
+      const idsHeroesToFetch = favsIds.filter((id) => !idsHeroesAlreadyFetched.includes(id));
+      const promises = this.createFavHeroesPromises(idsHeroesToFetch);
+
+      this.fetchFavHeroes(promises)
+        .then((heroesData) => {
+          this.heroes = [
+            ...heroesAlreadyFetched,
+            ...this.parseHeroesData(heroesData),
+          ];
+        })
+        .finally(() => {
+          this.isLoading = false;
+        });
     },
     handleClickedFav() {
       this.onlyFavHeroes = !this.onlyFavHeroes;
