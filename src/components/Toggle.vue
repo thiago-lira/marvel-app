@@ -25,6 +25,7 @@ export default {
   methods: {
     handleClick() {
       this.currentActive = !this.currentActive;
+      this.$emit('toggle');
     },
   },
 };

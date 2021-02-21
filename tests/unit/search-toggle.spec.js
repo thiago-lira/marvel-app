@@ -34,4 +34,13 @@ describe('Toggle.vue', () => {
 
     expect(toggle.classes().includes('active')).toBe(false);
   });
+
+  it('should to emit "toggle" event when click on toggle', async () => {
+    const toggle = wrapper.find('a');
+    toggle.trigger('click');
+
+    await wrapper.vm.$nextTick();
+
+    expect(wrapper.emitted().toggle[0]).toEqual([]);
+  });
 });
