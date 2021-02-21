@@ -7,13 +7,11 @@
     </div>
 
     <div class="search-sorting flex">
-      <img src="@/assets/hero.svg" alt="Ícone organizar por nome">
-
-      <span class="sorting-long-description">
-        Ordenar por nome
+      <span class="sorting-long-description hide-640 flex">
+        <img src="@/assets/hero.svg" alt="Ícone organizar por nome">
+        Ordenar por nome -
       </span>
-      - A/Z
-
+      A/Z
       <Toggle @toggle="handleToggle" />
     </div>
 
@@ -22,7 +20,7 @@
         <img v-if="onlyFavHeroes" src="@/assets/fav.svg" alt="Ícone favoritos">
         <img v-else src="@/assets/fav-outline.svg" alt="Ícone favoritos">
 
-        <p>Somente favoritos</p>
+        <p class="hide-640">Somente favoritos</p>
       </button>
     </div>
   </div>
@@ -98,6 +96,16 @@ export default {
     flex-grow: 1;
     font-size: 16px;
   }
-
 }
+
+.sorting-long-description {
+  margin-right: 5px;
+}
+
+.hide-640 {
+  @media (max-width: 640px) {
+    display: none;
+  }
+}
+
 </style>
