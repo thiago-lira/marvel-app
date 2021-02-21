@@ -63,6 +63,7 @@ export default {
       } else {
         message = 'Não foi possível adicionar à sua lista de favoritos pois o limite é de 5 personagens';
       }
+      this.$emit('toggleFavorite');
       this.$addMessage(message);
       lsHeroes.set(this.favoritesId);
     },
