@@ -17,6 +17,7 @@
 
       <div class="paginate">
         <SearchPaginate
+          v-if="!onlyFavHeroes"
           @clicked-page="paginate"
           :totalPages="totalPages"
           :activePage="activePage"

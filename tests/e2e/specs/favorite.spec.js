@@ -1,4 +1,15 @@
 describe('Favorite feature', () => {
+  const setNCardsAsFavorite = (n) => {
+    const indexes = Array.from(new Array(n).keys());
+    indexes.forEach((index) => {
+      cy
+        .get('.search-card')
+        .eq(index)
+        .find('[data-cy=fav-button]')
+        .click();
+    });
+  };
+
   it('should set a character as favorite', () => {
     cy.visit('/');
 
@@ -15,5 +26,39 @@ describe('Favorite feature', () => {
     cy
       .get('[data-cy=toast]')
       .should('to.exist');
+  });
+
+  it('should list only characters marked as favorite', () => {
+    cy.visit('/');
+
+    setNCardsAsFavorite(5);
+
+    cy
+      .get('[data-fav-button]')
+      .click();
+
+    cy
+      .get('.search-card')
+      .should('to.have.length', 5);
+  });
+
+  it('should to remove card from favorite list unmarked as favorite', () => {
+    cy.visit('/');
+
+    setNCardsAsFavorite(5);
+
+    cy
+      .get('[data-fav-button]')
+      .click();
+
+    cy
+      .get('.search-card')
+      .first()
+      .find('[data-cy=fav-button]')
+      .click();
+
+    cy
+      .get('.search-card')
+      .should('to.have.length', 4);
   });
 });
