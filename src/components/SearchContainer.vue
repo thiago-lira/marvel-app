@@ -51,7 +51,8 @@ export default {
     isFavorite(idHero) {
       return this.favoritesId.some((id) => id === idHero);
     },
-    handleToggleFavorite({ id, name }) {
+    handleToggleFavorite(payload) {
+      const { id, name } = payload;
       let message;
       const indexHero = this.favoritesId.findIndex((idHero) => idHero === id);
       if (indexHero !== -1) {
@@ -63,7 +64,7 @@ export default {
       } else {
         message = 'Não foi possível adicionar à sua lista de favoritos pois o limite é de 5 personagens';
       }
-      this.$emit('toggleFavorite');
+      this.$emit('toggleFavorite', payload);
       this.$addMessage(message);
       lsHeroes.set(this.favoritesId);
     },

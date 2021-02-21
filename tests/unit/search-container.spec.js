@@ -89,10 +89,11 @@ describe('SearchContainer.vue', () => {
     });
 
     const searchCard = wrapper.findComponent(SearchCard);
-    searchCard.vm.$emit('toggleFavorite', { ...hulk, favorite: true });
+    const payload = { ...hulk, favorite: true };
+    searchCard.vm.$emit('toggleFavorite', payload);
 
     await wrapper.vm.$nextTick();
 
-    expect(wrapper.emitted().toggleFavorite[0]).toEqual([]);
+    expect(wrapper.emitted().toggleFavorite[0][0]).toEqual(payload);
   });
 });
