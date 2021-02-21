@@ -80,4 +80,20 @@ describe('SearchContainer.vue', () => {
 
     expect(wrapper.vm.favoritesId).toEqual([1, 2, 3, 4, 5]);
   });
+
+  it('should to emit "toggleFavorite" when to listen "toggleFavorite" SearchCard event', async () => {
+    const hulk = { name: 'O Incrível Hurgui', id: 123, image: 'path/to/image.jpg' };
+
+    await wrapper.setProps({
+      heroes: [hulk],
+    });
+
+    const searchCard = wrapper.findComponent(SearchCard);
+    const payload = { ...hulk, favorite: true };
+    searchCard.vm.$emit('toggleFavorite', payload);
+
+    await wrapper.vm.$nextTick();
+
+    expect(wrapper.emitted().toggleFavorite[0][0]).toEqual(payload);
+  });
 });
