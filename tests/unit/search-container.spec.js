@@ -16,6 +16,7 @@ describe('SearchContainer.vue', () => {
         heroes: [],
       },
     });
+    wrapper.vm.$addMessage = () => {};
   });
 
   it('should to instantiate', () => {
@@ -95,5 +96,9 @@ describe('SearchContainer.vue', () => {
     await wrapper.vm.$nextTick();
 
     expect(wrapper.emitted().toggleFavorite[0][0]).toEqual(payload);
+  });
+
+  it('should to show a "no results" message when characters list is empty', () => {
+    expect(wrapper.find('[data-no-results]').exists()).toBe(true);
   });
 });
