@@ -191,6 +191,7 @@ export default {
         });
     },
     handleInput(value) {
+      this.onlyFavHeroes = false;
       this.term = value;
     },
   },

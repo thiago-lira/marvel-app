@@ -61,4 +61,24 @@ describe('Favorite feature', () => {
       .get('.search-card')
       .should('to.have.length', 4);
   });
+
+  it('should unmarked only favorite options when start a searching', () => {
+    cy.visit('/');
+
+    cy
+      .get('[data-fav-button]')
+      .click();
+
+    cy
+      .get('[data-only-favs]')
+      .should('to.exist');
+
+    cy
+      .get('[data-cy=search-input]')
+      .type('Wolverine');
+
+    cy
+      .get('[data-all-characters]')
+      .should('to.exist');
+  });
 });
