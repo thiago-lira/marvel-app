@@ -1,7 +1,9 @@
 <template>
   <header>
     <div class="logo">
-      <img src="@/assets/logo.svg" alt="Marvel Logo">
+      <router-link :to="{ name: 'Home' }">
+        <img src="@/assets/logo.svg" alt="Marvel Logo">
+      </router-link>
     </div>
 
     <div>
