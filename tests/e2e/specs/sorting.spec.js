@@ -6,13 +6,10 @@ describe('Toggle.vue', () => {
       .get('[data-cy=toggle]')
       .click();
 
-    // TODO: change this
-    cy.wait(3000);
-
     cy
       .get('.search-card')
       .first()
       .get('[data-cy=card-hero-name]')
-      .contains('Zzzax');
+      .should('to.contain', 'Zzzax');
   });
 });
