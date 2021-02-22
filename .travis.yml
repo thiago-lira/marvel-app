@@ -10,8 +10,8 @@ branches:
 cache:
   npm: false
 
-before_script:
-  npm run build
-
 script:
-  npm test && npm install surge && surge ./dist $DOMAIN
+  npm run lint && npm test && npm run build
+
+after_success:
+  npm install surge && surge ./dist $DOMAIN
