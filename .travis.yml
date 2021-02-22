@@ -14,4 +14,4 @@ before_script:
   npm run build
 
 script:
-  npm install surge && surge ./dist $DOMAIN
+  npm test && npm install surge && surge ./dist $DOMAIN
