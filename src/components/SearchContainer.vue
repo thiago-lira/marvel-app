@@ -16,6 +16,11 @@
             @toggleFavorite="handleToggleFavorite"
           />
         </template>
+        <template v-else>
+          <p data-no-results="">
+            Não há personagens para serem exibidos
+          </p>
+        </template>
       </template>
     </div>
   </div>
