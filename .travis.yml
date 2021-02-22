@@ -7,9 +7,6 @@ branches:
   only:
     - master
 
-cache:
-  npm: false
-
 script:
   npm run lint && npm test && npm run build
 
