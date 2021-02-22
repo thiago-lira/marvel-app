@@ -84,13 +84,20 @@ export default {
     fetchCharacters() {
       this.getCharacters(this.getParams());
     },
+    sortFavoriteHeroes() {
+    },
     handleToggleSort() {
       this.isSortAsc = !this.isSortAsc;
-      this.fetchCharacters();
+      if (this.onlyFavHeroes) {
+        this.sortFavoriteHeroes();
+      } else {
+        this.fetchCharacters();
+      }
     },
     handleToggleFavorite({ id: idPayload }) {
       if (this.onlyFavHeroes) {
-        this.heroes = this.heroes.filter(({ id }) => id !== idPayload);
+        this.heroes = this.heroes
+          .filter(({ id }) => id !== idPayload);
       }
     },
     fetchFavHeroes(promises) {
@@ -125,10 +132,14 @@ export default {
 
       this.fetchFavHeroes(promises)
         .then((heroesData) => {
+          const ascSorting = (a, b) => b.id - a.id;
+          const descSorting = (a, b) => a.id - b.id;
+          const fn = this.isSortAsc ? ascSorting : descSorting;
+
           this.heroes = [
             ...heroesAlreadyFetched,
             ...this.parseHeroesData(heroesData),
-          ];
+          ].sort(fn);
         })
         .finally(() => {
           this.isLoading = false;
