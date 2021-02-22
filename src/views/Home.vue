@@ -84,12 +84,22 @@ export default {
     fetchCharacters() {
       this.getCharacters(this.getParams());
     },
-    sortFavoriteHeroes() {
+    sortHeroes(heroes) {
+      const [value1, value2] = this.isSortAsc ? [1, -1] : [-1, 1];
+
+      return heroes.sort((a, b) => {
+        if (b.name < a.name) return value1;
+        if (b.name > a.name) return value2;
+        return 0;
+      });
+    },
+    sortFavHeroes() {
+      this.heroes = this.sortHeroes(this.heroes);
     },
     handleToggleSort() {
       this.isSortAsc = !this.isSortAsc;
       if (this.onlyFavHeroes) {
-        this.sortFavoriteHeroes();
+        this.sortFavHeroes();
       } else {
         this.fetchCharacters();
       }
@@ -132,14 +142,10 @@ export default {
 
       this.fetchFavHeroes(promises)
         .then((heroesData) => {
-          const ascSorting = (a, b) => b.id - a.id;
-          const descSorting = (a, b) => a.id - b.id;
-          const fn = this.isSortAsc ? ascSorting : descSorting;
-
-          this.heroes = [
+          this.heroes = this.sortHeroes([
             ...heroesAlreadyFetched,
             ...this.parseHeroesData(heroesData),
-          ].sort(fn);
+          ]);
         })
         .finally(() => {
           this.isLoading = false;
