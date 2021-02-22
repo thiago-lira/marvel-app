@@ -84,13 +84,30 @@ export default {
     fetchCharacters() {
       this.getCharacters(this.getParams());
     },
+    sortHeroes(heroes) {
+      const [value1, value2] = this.isSortAsc ? [1, -1] : [-1, 1];
+
+      return heroes.sort((a, b) => {
+        if (b.name < a.name) return value1;
+        if (b.name > a.name) return value2;
+        return 0;
+      });
+    },
+    sortFavHeroes() {
+      this.heroes = this.sortHeroes(this.heroes);
+    },
     handleToggleSort() {
       this.isSortAsc = !this.isSortAsc;
-      this.fetchCharacters();
+      if (this.onlyFavHeroes) {
+        this.sortFavHeroes();
+      } else {
+        this.fetchCharacters();
+      }
     },
     handleToggleFavorite({ id: idPayload }) {
       if (this.onlyFavHeroes) {
-        this.heroes = this.heroes.filter(({ id }) => id !== idPayload);
+        this.heroes = this.heroes
+          .filter(({ id }) => id !== idPayload);
       }
     },
     fetchFavHeroes(promises) {
@@ -125,10 +142,10 @@ export default {
 
       this.fetchFavHeroes(promises)
         .then((heroesData) => {
-          this.heroes = [
+          this.heroes = this.sortHeroes([
             ...heroesAlreadyFetched,
             ...this.parseHeroesData(heroesData),
-          ];
+          ]);
         })
         .finally(() => {
           this.isLoading = false;

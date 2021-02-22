@@ -81,4 +81,28 @@ describe('Favorite feature', () => {
       .get('[data-all-characters]')
       .should('to.exist');
   });
+
+  it('should to sort desc order', () => {
+    cy.visit('/');
+
+    setNCardsAsFavorite(5);
+
+    cy
+      .get('[data-cy=card-hero-name]')
+      .eq(4)
+      .should('to.contain', 'Abomination');
+
+    cy
+      .get('[data-fav-button]')
+      .click();
+
+    cy
+      .get('[data-cy=toggle]')
+      .click();
+
+    cy
+      .get('[data-cy=card-hero-name]')
+      .eq(4)
+      .should('to.contain', '3-D Man');
+  });
 });
