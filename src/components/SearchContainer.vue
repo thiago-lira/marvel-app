@@ -2,8 +2,10 @@
   <div>
     <div class="search-container flex">
       <template v-if="isLoading">
-        <div data-cy="loader">
-          Carregando...
+        <div class="loader flex" data-cy="loader">
+          <div class="loader-content">
+            <img src="@/assets/marvel-icon.png" alt="Marvel icon" />
+          </div>
         </div>
       </template>
       <template v-else>
@@ -81,5 +83,28 @@ export default {
 .search-container {
   flex-wrap: wrap;
   justify-content: center;
+}
+
+.loader {
+  align-items: center;
+  height: 72px;
+
+  &-content img {
+    animation: loading 1s infinite ease-in-out;
+  }
+}
+
+@keyframes loading {
+  0% {
+    height: 72px;
+  }
+
+  50% {
+    height: 45px;
+  }
+
+  100% {
+    height: 72px;
+  }
 }
 </style>
