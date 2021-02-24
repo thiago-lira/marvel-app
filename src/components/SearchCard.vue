@@ -1,6 +1,6 @@
 <template>
   <div class="search-card">
-    <div class="search-card-image">
+    <div class="search-card-image flex">
       <img :src="hero.image" alt="Hero">
     </div>
 
@@ -79,8 +79,12 @@ export default {
 
   &-image {
     height: 200px;
+    justify-content: center;
     text-align: center;
+
     img {
+      align-self: end;
+      border-bottom: 5px solid $main-color;
       display: inline-block;
       max-height: 100%;
       max-width: 100%;

@@ -11,3 +11,9 @@ export default {
   name: 'LogoApp',
 };
 </script>
+
+<style scoped>
+.logo {
+  display: inline-block;
+};
+</style>
