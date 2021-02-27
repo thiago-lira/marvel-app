@@ -2,6 +2,8 @@
   <div class="details">
     <HeaderDetails />
 
+    {{ comics }}
+
     <div class="custom-background">
       <main class="container">
         <HeroDetails />
@@ -13,12 +15,43 @@
 <script>
 import HeaderDetails from '@/components/HeaderDetails.vue';
 import HeroDetails from '@/components/HeroDetails.vue';
+import marvelService from '@/services/marvel';
 
 export default {
   name: 'DetailsPage',
   components: {
     HeaderDetails,
     HeroDetails,
+  },
+  data() {
+    return {
+      comics: [],
+    };
+  },
+  computed: {
+    characterId() {
+      return this.$route.params.id;
+    },
+  },
+  methods: {
+    fetchComics() {
+      marvelService.getComicsByCharacterId(this.characterId)
+        .then(({ data }) => {
+          this.comics = data.data.results.map(({ title, images }) => {
+            const comic = {
+              title,
+            };
+            if (images.length > 0) {
+              const { extension, path } = images[0];
+              comic.url = `${path}.${extension}`;
+            }
+            return comic;
+          });
+        });
+    },
+  },
+  beforeMount() {
+    this.fetchComics();
   },
 };
 </script>
