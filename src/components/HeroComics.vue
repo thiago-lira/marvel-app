@@ -1,20 +1,17 @@
 <template>
   <div class="latest-comics">
     <h1>
-      Últimas Publicações
+      {{ title }}
     </h1>
 
     <ul class="comics flex">
-      <li><img src="http://i.annihil.us/u/prod/marvel/i/mg/9/d0/58b5cfb6d5239.jpg" alt="" /></li>
-      <li><img src="http://i.annihil.us/u/prod/marvel/i/mg/9/d0/58b5cfb6d5239.jpg" alt="" /></li>
-      <li><img src="http://i.annihil.us/u/prod/marvel/i/mg/9/d0/58b5cfb6d5239.jpg" alt="" /></li>
-      <li><img src="http://i.annihil.us/u/prod/marvel/i/mg/9/d0/58b5cfb6d5239.jpg" alt="" /></li>
-      <li><img src="http://i.annihil.us/u/prod/marvel/i/mg/9/d0/58b5cfb6d5239.jpg" alt="" /></li>
-      <li><img src="http://i.annihil.us/u/prod/marvel/i/mg/9/d0/58b5cfb6d5239.jpg" alt="" /></li>
-      <li><img src="http://i.annihil.us/u/prod/marvel/i/mg/9/d0/58b5cfb6d5239.jpg" alt="" /></li>
-      <li><img src="http://i.annihil.us/u/prod/marvel/i/mg/9/d0/58b5cfb6d5239.jpg" alt="" /></li>
-      <li><img src="http://i.annihil.us/u/prod/marvel/i/mg/9/d0/58b5cfb6d5239.jpg" alt="" /></li>
-      <li><img src="http://i.annihil.us/u/prod/marvel/i/mg/9/d0/58b5cfb6d5239.jpg" alt="" /></li>
+      <li
+        v-for="{ url } in comics"
+        :key="url"
+        data-comic-image
+      >
+        <img :src="url" alt="" />
+      </li>
     </ul>
   </div>
 </template>

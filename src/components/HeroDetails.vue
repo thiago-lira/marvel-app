@@ -21,7 +21,7 @@
       </div>
     </div>
 
-    <HeroComics />
+    <HeroComics :comics="comics" title="Últimas Publicações" />
   </div>
 </template>
 
@@ -32,6 +32,15 @@ export default {
   name: 'HeroDetails',
   components: {
     HeroComics,
+  },
+  data() {
+    return {
+      comics: [{
+        url: 'http://i.annihil.us/u/prod/marvel/i/mg/9/d0/58b5cfb6d5239.jpg',
+      }, {
+        url: 'http://i.annihil.us/u/prod/marvel/i/mg/9/d0/58b5cfb6d5239.jpg',
+      }],
+    };
   },
 };
 </script>
