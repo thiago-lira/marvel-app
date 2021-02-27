@@ -59,7 +59,7 @@ describe('Marvel service', () => {
 
     it('should to fetch characters comic passing id, limit = 10, and onsaleDate order by', () => {
       marvelService.getComicsByCharacterId(characterId);
-      expect(http.get.mock.calls[0][0]).toContain(`characters/${characterId}/comics?limit=10&orderBy=onsaleDate`);
+      expect(http.get.mock.calls[0][0]).toContain(`characters/${characterId}/comics?limit=10&orderBy=-onsaleDate`);
     });
   });
 });
