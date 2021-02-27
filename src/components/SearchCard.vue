@@ -1,15 +1,19 @@
 <template>
   <div class="search-card">
-    <div class="search-card-image flex">
-      <img :src="hero.image" alt="Hero">
-    </div>
+    <a @click.prevent="handleDetailsClick" data-hero-link href="#">
+      <div class="search-card-image flex">
+        <img :src="hero.image" alt="Hero" />
+      </div>
+    </a>
 
     <div class="search-card-details flex">
       <div class="card-hero-name">
         <p>
-          <b data-cy="card-hero-name">
-            {{ hero.name }}
-          </b>
+          <a @click.prevent="handleDetailsClick" data-hero-link href="#">
+            <b data-cy="card-hero-name">
+              {{ hero.name }}
+            </b>
+          </a>
         </p>
       </div>
 
@@ -47,6 +51,9 @@ export default {
     },
   },
   methods: {
+    handleDetailsClick() {
+      this.$emit('detailsClick', this.hero);
+    },
     handleFavoriteClick() {
       const payload = {
         ...this.hero,
@@ -83,7 +90,7 @@ export default {
     text-align: center;
 
     img {
-      align-self: end;
+      align-self: flex-end;
       border-bottom: 5px solid $main-color;
       display: inline-block;
       max-height: 100%;
@@ -93,6 +100,13 @@ export default {
 
   .card-hero-name {
     flex-grow: 1;
+  }
+
+  [data-hero-link] {
+    text-decoration: none;
+    &:hover {
+      color: $light-grey;
+    }
   }
 }
 </style>
