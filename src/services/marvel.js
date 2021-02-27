@@ -10,4 +10,7 @@ export default {
   getCharacterById(id) {
     return http.get(`/v1/public/characters/${id}`);
   },
+  getComicsByCharacterId(id) {
+    return http.get(`/v1/public/characters/${id}/comics?limit=10&orderBy=onsaleDate`);
+  },
 };
