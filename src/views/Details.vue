@@ -34,20 +34,21 @@ export default {
     },
   },
   methods: {
+    mapComics({ data }) {
+      this.comics = data.data.results.map(({ title, images }) => {
+        const comic = {
+          title,
+        };
+        if (images.length > 0) {
+          const { extension, path } = images[0];
+          comic.url = `${path}.${extension}`;
+        }
+        return comic;
+      });
+    },
     fetchComics() {
       marvelService.getComicsByCharacterId(this.characterId)
-        .then(({ data }) => {
-          this.comics = data.data.results.map(({ title, images }) => {
-            const comic = {
-              title,
-            };
-            if (images.length > 0) {
-              const { extension, path } = images[0];
-              comic.url = `${path}.${extension}`;
-            }
-            return comic;
-          });
-        });
+        .then(this.mapComics);
     },
   },
   beforeMount() {
