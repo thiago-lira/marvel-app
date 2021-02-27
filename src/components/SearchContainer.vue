@@ -16,6 +16,7 @@
             :is-favorite="isFavorite(id)"
             :key="id"
             @toggleFavorite="handleToggleFavorite"
+            @detailsClick="handleDetailsClick"
           />
         </template>
         <template v-else>
@@ -57,6 +58,9 @@ export default {
   methods: {
     isFavorite(idHero) {
       return this.favoritesId.some((id) => id === idHero);
+    },
+    handleDetailsClick(payload) {
+      this.$emit('detailsClicked', payload);
     },
     handleToggleFavorite(payload) {
       const { id, name } = payload;
