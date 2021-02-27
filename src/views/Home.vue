@@ -12,6 +12,7 @@
 
       <SearchContainer
         @toggleFavorite="handleToggleFavorite"
+        @detailsClick="handleDetailsClick"
         :is-loading="isLoading"
         :heroes="heroes"
       />
@@ -81,6 +82,9 @@ export default {
     },
   },
   methods: {
+    handleDetailsClick({ id }) {
+      this.$router.push({ name: 'Details', params: { id } });
+    },
     fetchCharacters() {
       this.getCharacters(this.getParams());
     },
