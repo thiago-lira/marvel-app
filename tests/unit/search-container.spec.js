@@ -107,6 +107,6 @@ describe('SearchContainer.vue', () => {
 
     await wrapper.vm.$nextTick();
 
-    expect(wrapper.emitted().detailsClicked[0][0]).toEqual(hulk);
+    expect(wrapper.emitted().detailsClick[0][0]).toEqual(hulk);
   });
 });

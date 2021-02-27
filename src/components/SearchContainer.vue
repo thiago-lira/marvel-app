@@ -60,7 +60,7 @@ export default {
       return this.favoritesId.some((id) => id === idHero);
     },
     handleDetailsClick(payload) {
-      this.$emit('detailsClicked', payload);
+      this.$emit('detailsClick', payload);
     },
     handleToggleFavorite(payload) {
       const { id, name } = payload;
