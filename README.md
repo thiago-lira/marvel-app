@@ -59,7 +59,7 @@ yarn lint
 
 ## Hooks
 
-There some git hooks in this project.
+There are some git hooks in this project.
 
 * **Pre push**: before to push, runs unit and E2E test and checks the coverage rate (< 80% it fails).
 * **Pre commit**: before to commit, runs lint.
