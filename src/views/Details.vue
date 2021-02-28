@@ -2,7 +2,9 @@
   <div class="details">
     <HeaderDetails />
 
+    <Loader v-if="isLoading" />
     <div
+      v-else
       class="custom-background"
       :style="{ backgroundImage }"
     >
@@ -34,6 +36,7 @@ export default {
   },
   data() {
     return {
+      isLoading: true,
       favCharacters: favCharactersIds.get(),
       character: {},
       comics: [],
@@ -98,17 +101,24 @@ export default {
       };
     },
     fetchCharacter() {
-      marvelService.getCharacterById(this.characterId)
+      return marvelService.getCharacterById(this.characterId)
         .then(this.mapCharacter);
     },
     fetchComics() {
-      marvelService.getComicsByCharacterId(this.characterId)
+      return marvelService.getComicsByCharacterId(this.characterId)
         .then(this.mapComics);
     },
+    fetchData() {
+      this.isLoading = true;
+      Promise
+        .all([this.fetchCharacter(), this.fetchComics()])
+        .then(() => {
+          this.isLoading = false;
+        });
+    },
   },
-  beforeMount() {
-    this.fetchCharacter();
-    this.fetchComics();
+  mounted() {
+    this.fetchData();
   },
 };
 </script>
