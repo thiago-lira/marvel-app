@@ -2,7 +2,9 @@
   <div class="details">
     <HeaderDetails @input="handleInput" />
 
-    <Loader v-if="isLoading" />
+    <div v-if="isLoading" class="loader flex">
+      <Loader />
+    </div>
     <div
       v-else
       class="custom-background"
@@ -131,6 +133,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.loader {
+  justify-content: center;
+  padding: 15px;
+}
 .custom-background {
   background-position: center;
   background-size: cover;
