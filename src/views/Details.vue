@@ -53,8 +53,11 @@ export default {
       });
     },
     mapCharacter({ data }) {
-      const { name, description, thumbnail: { extension, path } } = data.data.results[0];
+      const {
+        id, name, description, thumbnail: { extension, path },
+      } = data.data.results[0];
       this.character = {
+        id,
         name,
         description: description.trim() !== ''
           ? description

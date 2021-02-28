@@ -2,9 +2,18 @@
   <div class="hero-details">
     <div class="flex">
       <div class="character-description">
-        <h1>
-          {{ character.name }}
-        </h1>
+        <div class="flex">
+          <div class="character-name">
+            <h1>
+              {{ character.name }}
+            </h1>
+          </div>
+          <div class="character-favorite">
+            <button @click="handleFavClick" data-fav-button>
+              S2
+            </button>
+          </div>
+        </div>
 
         <p>
           {{ character.description }}
@@ -36,6 +45,11 @@ export default {
     comics: {
       type: Array,
       required: true,
+    },
+  },
+  methods: {
+    handleFavClick() {
+      this.$emit('toggleFavorite', { ...this.character });
     },
   },
 };
