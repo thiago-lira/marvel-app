@@ -1,13 +1,7 @@
 <template>
   <div>
     <div class="search-container flex">
-      <template v-if="isLoading">
-        <div class="loader flex" data-cy="loader">
-          <div class="loader-content">
-            <img src="@/assets/marvel-icon.png" alt="Marvel icon" />
-          </div>
-        </div>
-      </template>
+      <Loader v-if="isLoading" />
       <template v-else>
         <template v-if="heroes.length > 0">
           <SearchCard
@@ -31,6 +25,7 @@
 
 <script>
 import SearchCard from '@/components/SearchCard.vue';
+import Loader from '@/components/Loader.vue';
 import localstorage from '@/utils/localstorage';
 
 const lsHeroes = localstorage('MARVEL_HEROES_ID', []);
@@ -39,6 +34,7 @@ export default {
   name: 'SearchContainer',
   components: {
     SearchCard,
+    Loader,
   },
   props: {
     isLoading: {
