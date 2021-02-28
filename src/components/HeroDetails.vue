@@ -3,21 +3,16 @@
     <div class="flex">
       <div class="character-description">
         <h1>
-          Hulk
+          {{ character.name }}
         </h1>
 
         <p>
-          lorem ipsum sit dolor amet
-          lorem ipsum sit dolor amet
-          lorem ipsum sit dolor amet
-          lorem ipsum sit dolor amet
-          lorem ipsum sit dolor amet
-          lorem ipsum sit dolor amet
+          {{ character.description }}
         </p>
       </div>
 
       <div class="character-image">
-        <img src="http://i.annihil.us/u/prod/marvel/i/mg/f/60/4c0042121d790.jpg" alt="" />
+        <img :src="character.image" :alt="character.image" />
       </div>
     </div>
 
@@ -34,6 +29,10 @@ export default {
     HeroComics,
   },
   props: {
+    character: {
+      type: Object,
+      required: true,
+    },
     comics: {
       type: Array,
       required: true,
@@ -41,3 +40,9 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" scoped>
+.character-description {
+  flex-grow: 1;
+}
+</style>

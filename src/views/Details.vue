@@ -2,9 +2,12 @@
   <div class="details">
     <HeaderDetails />
 
-    <div class="custom-background">
+    <div
+      class="custom-background"
+      :style="{ backgroundImage }"
+    >
       <main class="container">
-        <HeroDetails :comics="comics" />
+        <HeroDetails :character="character" :comics="comics" />
       </main>
     </div>
   </div>
@@ -23,10 +26,17 @@ export default {
   },
   data() {
     return {
+      character: {},
       comics: [],
     };
   },
   computed: {
+    backgroundImage() {
+      return `
+        linear-gradient(to bottom, #e3f8e8 2%, rgba(255, 255, 255, .8) 98%),
+        url(${this.character.image})
+      `;
+    },
     characterId() {
       return this.$route.params.id;
     },
@@ -42,12 +52,27 @@ export default {
         return comic;
       });
     },
+    mapCharacter({ data }) {
+      const { name, description, thumbnail: { extension, path } } = data.data.results[0];
+      this.character = {
+        name,
+        description: description.trim() !== ''
+          ? description
+          : 'Não há descrição para este personagem',
+        image: `${path}.${extension}`,
+      };
+    },
+    fetchCharacter() {
+      marvelService.getCharacterById(this.characterId)
+        .then(this.mapCharacter);
+    },
     fetchComics() {
       marvelService.getComicsByCharacterId(this.characterId)
         .then(this.mapComics);
     },
   },
   beforeMount() {
+    this.fetchCharacter();
     this.fetchComics();
   },
 };
@@ -55,25 +80,11 @@ export default {
 
 <style lang="scss" scoped>
 .custom-background {
+  background-position: center;
+  background-size: cover;
   padding: 30px 0;
   position: relative;
   z-index: 9;
-
-  &:after {
-    background-image: linear-gradient(to bottom, #e3f8e8 2%, rgba(255, 255, 255, .1) 98%), url(http://i.annihil.us/u/prod/marvel/i/mg/a/f0/5202887448860.jpg);
-    background-position: center;
-    background-size: cover;
-    content: "";
-    filter: grayscale(100);
-    height: 100%;
-    opacity: .35;
-    position: absolute;
-    text-align: center;
-    left: 0;
-    top: 0;
-    width: 100%;
-    z-index: -1;
-  }
 }
 
 .container {
