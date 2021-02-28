@@ -6,6 +6,13 @@ A simple application for Marvel characters fetching.
 
 http://marvelsearchheroes.surge.sh/
 
+## Summary
+1. [Getting Started](#getting-started)
+2. [Running Tests](#running-tests)
+3. [Hooks](#hooks)
+4. [Deployment](#deployment)
+5. [Built With](#built-with)
+
 ## Getting Started
 
 ### running local
@@ -58,7 +65,8 @@ There some git hooks in this project.
 * **Pre commit**: before to commit, runs lint.
 
 ## Deployment
-This project uses Travis CI. Just commit on master branch and it will deploy if the build pass.
+This project uses Travis CI. Just commit on master branch and it will deploy if the build pass.  
+Check the build progress [right here](https://travis-ci.com/github/thiago-lira/marvel-app/builds/218463479).
 
 ## Built with
 * Node.js
