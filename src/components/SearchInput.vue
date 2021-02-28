@@ -7,7 +7,7 @@
 
       <div>
         <input
-          @keyup="handleChange"
+          v-model="term"
           data-cy="search-input"
           type="text"
           :placeholder="placeholder"
@@ -26,9 +26,18 @@ export default {
       default: '',
     },
   },
-  methods: {
-    handleChange({ target }) {
-      this.$emit('input', target.value);
+  data() {
+    return {
+      term: '',
+    };
+  },
+  watch: {
+    term(newValue) {
+      setTimeout(() => {
+        if (this.term === newValue) {
+          this.$emit('input', this.term);
+        }
+      }, 400);
     },
   },
 };
