@@ -38,3 +38,7 @@ footer {
   display: flex;
 }
 
+#toast-plugin {
+  position: relative;
+  z-index: 999;
+}

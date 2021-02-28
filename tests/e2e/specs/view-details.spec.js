@@ -13,4 +13,16 @@ describe('Details view', () => {
         expect(loc.pathname).to.eq('/details/1017100');
       });
   });
+
+  it('should to mark a character as favorite', () => {
+    cy.visit('/details/1017100');
+
+    cy
+      .get('[data-cy=not-fav-icon]')
+      .click();
+
+    cy
+      .get('[data-cy=fav-icon]')
+      .should('to.exist');
+  });
 });
