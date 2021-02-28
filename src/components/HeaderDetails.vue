@@ -1,7 +1,9 @@
 <template>
   <header class="container flex">
     <div class="logo">
-      <img src="@/assets/logo-details.png" alt="Marvel Logo" />
+      <router-link :to="{ name: 'Home' }">
+        <img src="@/assets/logo-details.png" alt="Marvel Logo" />
+      </router-link>
     </div>
 
     <div class="search-input">
@@ -58,6 +60,15 @@ header {
           }
         }
       }
+    }
+  }
+
+  @media(max-width: 540px) {
+    .logo {
+      margin-top: 20px;
+    }
+    &.flex {
+      flex-flow: column;
     }
   }
 }

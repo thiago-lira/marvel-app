@@ -42,7 +42,30 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.character-description {
-  flex-grow: 1;
+.hero-details {
+  @media (max-width: 540px) {
+    margin: 0 10px;
+
+    .character-description {
+      margin-bottom: 20px;
+    }
+
+    > .flex {
+      flex-flow: column;
+    }
+  }
+}
+
+.character {
+  &-image {
+    max-width: 375px;
+
+    img {
+      max-width: 100%;
+    }
+  }
+  &-description {
+    flex-grow: 1;
+  }
 }
 </style>
