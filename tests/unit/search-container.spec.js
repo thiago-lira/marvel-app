@@ -4,6 +4,7 @@ import SearchCard from '@/components/SearchCard.vue';
 
 describe('SearchContainer.vue', () => {
   let wrapper;
+  const hulk = { name: 'O Incrível Hurgui', id: 123, image: 'path/to/image.jpg' };
   beforeEach(() => {
     wrapper = shallowMount(SearchContainer, {
       data() {
@@ -38,12 +39,11 @@ describe('SearchContainer.vue', () => {
   });
 
   it('should include id character in favoritesId list', async () => {
-    const hurgui = { name: 'O Incrível Hurgui', id: 123, image: 'path/to/image.jpg' };
     await wrapper.setProps({
-      heroes: [hurgui],
+      heroes: [hulk],
     });
     const searchCard = wrapper.findComponent(SearchCard);
-    searchCard.vm.$emit('toggleFavorite', { ...hurgui, favorite: true });
+    searchCard.vm.$emit('toggleFavorite', { ...hulk, favorite: true });
 
     await wrapper.vm.$nextTick();
 
@@ -51,15 +51,14 @@ describe('SearchContainer.vue', () => {
   });
 
   it('should remove id character in favoritesId list', async () => {
-    const hurgui = { name: 'O Incrível Hurgui', id: 123, image: 'path/to/image.jpg' };
     await wrapper.setData({
       favoritesId: [123],
     });
     await wrapper.setProps({
-      heroes: [hurgui],
+      heroes: [hulk],
     });
     const searchCard = wrapper.findComponent(SearchCard);
-    searchCard.vm.$emit('toggleFavorite', { ...hurgui, favorite: true });
+    searchCard.vm.$emit('toggleFavorite', { ...hulk, favorite: true });
 
     await wrapper.vm.$nextTick();
 
@@ -67,15 +66,14 @@ describe('SearchContainer.vue', () => {
   });
 
   it('should not include character id in favorites list when it already has 5 items', async () => {
-    const hurgui = { name: 'O Incrível Hurgui', id: 123, image: 'path/to/image.jpg' };
     await wrapper.setData({
       favoritesId: [1, 2, 3, 4, 5],
     });
     await wrapper.setProps({
-      heroes: [hurgui],
+      heroes: [hulk],
     });
     const searchCard = wrapper.findComponent(SearchCard);
-    searchCard.vm.$emit('toggleFavorite', { ...hurgui, favorite: true });
+    searchCard.vm.$emit('toggleFavorite', { ...hulk, favorite: true });
 
     await wrapper.vm.$nextTick();
 
@@ -83,8 +81,6 @@ describe('SearchContainer.vue', () => {
   });
 
   it('should to emit "toggleFavorite" when to listen "toggleFavorite" SearchCard event', async () => {
-    const hulk = { name: 'O Incrível Hurgui', id: 123, image: 'path/to/image.jpg' };
-
     await wrapper.setProps({
       heroes: [hulk],
     });
@@ -100,5 +96,17 @@ describe('SearchContainer.vue', () => {
 
   it('should to show a "no results" message when characters list is empty', () => {
     expect(wrapper.find('[data-no-results]').exists()).toBe(true);
+  });
+
+  it('should to listen "detailsClick" from SearchCard and to emit "detailsClick" event', async () => {
+    await wrapper.setProps({
+      heroes: [hulk],
+    });
+    const searchCard = wrapper.findComponent(SearchCard);
+    await searchCard.vm.$emit('detailsClick', hulk);
+
+    await wrapper.vm.$nextTick();
+
+    expect(wrapper.emitted().detailsClick[0][0]).toEqual(hulk);
   });
 });

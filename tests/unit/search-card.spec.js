@@ -42,4 +42,11 @@ describe('SearchCard.vue', () => {
     };
     expect(wrapper.emitted().toggleFavorite[0]).toEqual([expectedData]);
   });
+
+  it('should to pass hero details when "detailsClick" event is emitted', () => {
+    const cardImg = wrapper.find('[data-hero-link]');
+    cardImg.trigger('click');
+
+    expect(wrapper.emitted().detailsClick[0]).toEqual([hero]);
+  });
 });
