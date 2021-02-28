@@ -10,7 +10,18 @@
           </div>
           <div class="character-favorite">
             <button @click="handleFavClick" data-fav-button>
-              S2
+              <img
+                v-if="isFavorite"
+                data-cy="fav-icon"
+                src="@/assets/fav.svg"
+                alt="Ícone herói favorito"
+              >
+              <img
+                v-else
+                data-cy="not-fav-icon"
+                src="@/assets/fav-outline.svg"
+                alt="Ícone herói favorito"
+              >
             </button>
           </div>
         </div>
@@ -38,6 +49,10 @@ export default {
     HeroComics,
   },
   props: {
+    isFavorite: {
+      type: Boolean,
+      default: false,
+    },
     character: {
       type: Object,
       required: true,
@@ -70,6 +85,12 @@ export default {
   }
 }
 
+[data-fav-button] {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
 .character {
   &-image {
     max-width: 375px;
@@ -78,8 +99,14 @@ export default {
       max-width: 100%;
     }
   }
+
+  &-name {
+    flex-grow: 1;
+  }
+
   &-description {
     flex-grow: 1;
+    margin: 0 30px;
   }
 }
 </style>

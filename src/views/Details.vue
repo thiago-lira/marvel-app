@@ -7,7 +7,12 @@
       :style="{ backgroundImage }"
     >
       <main class="container">
-        <HeroDetails :character="character" :comics="comics" />
+        <HeroDetails
+          @toggleFavorite="handleToggleFavorite"
+          :isFavorite="isFavorite"
+          :character="character"
+          :comics="comics"
+        />
       </main>
     </div>
   </div>
@@ -17,6 +22,9 @@
 import HeaderDetails from '@/components/HeaderDetails.vue';
 import HeroDetails from '@/components/HeroDetails.vue';
 import marvelService from '@/services/marvel';
+import lStorage from '@/utils/localstorage';
+
+const favCharactersIds = lStorage('MARVEL_HEROES_ID', []);
 
 export default {
   name: 'DetailsPage',
@@ -26,11 +34,15 @@ export default {
   },
   data() {
     return {
+      favCharacters: favCharactersIds.get(),
       character: {},
       comics: [],
     };
   },
   computed: {
+    isFavorite() {
+      return this.favCharacters.includes(this.character.id);
+    },
     backgroundImage() {
       return `
         linear-gradient(to bottom, #e3f8e8 2%, rgba(255, 255, 255, .8) 98%),
@@ -42,6 +54,26 @@ export default {
     },
   },
   methods: {
+    handleToggleFavorite() {
+      const { id, name } = this.character;
+      const favIds = [...this.favCharacters];
+      const characterIdIndex = favIds.findIndex((favId) => favId === id);
+      let message;
+
+      if (characterIdIndex !== -1) {
+        favIds.splice(characterIdIndex, 1);
+        message = `${name} foi desmarcado como favorito`;
+      } else if (favIds.length < 5) {
+        favIds.push(id);
+        message = `${name} foi marcado como favorito`;
+      } else {
+        message = 'Não foi possível adicionar à sua lista de favoritos pois o limite é de 5 personagens';
+      }
+
+      favCharactersIds.set(favIds);
+      this.favCharacters = favIds;
+      this.$addMessage(message);
+    },
     mapComics({ data }) {
       this.comics = data.data.results.map(({ title, images }) => {
         const comic = { title };
