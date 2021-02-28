@@ -6,11 +6,18 @@
 
     <ul class="comics flex">
       <li
-        v-for="{ url } in comics"
+        v-for="{ url, title } in comics"
         :key="url"
         data-comic-image
       >
-        <img :src="url" alt="" />
+        <div class="comic-cover">
+          <img :src="url" alt="" />
+        </div>
+        <div class="comic-title">
+          <p>
+            {{ title }}
+          </p>
+        </div>
       </li>
     </ul>
   </div>
@@ -45,13 +52,19 @@ export default {
 
     li {
       flex-grow: 1;
-      margin: 5px;
+      margin: 15px 5px;
       max-width: 180px;
     }
 
     img {
       max-width: 100%;
     }
+  }
+
+  .comic-title {
+    height: 65px;
+    padding-top: 5px;
+    vertical-align: middle;
   }
 }
 </style>

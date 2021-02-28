@@ -33,14 +33,11 @@ export default {
   components: {
     HeroComics,
   },
-  data() {
-    return {
-      comics: [{
-        url: 'http://i.annihil.us/u/prod/marvel/i/mg/9/d0/58b5cfb6d5239.jpg',
-      }, {
-        url: 'http://i.annihil.us/u/prod/marvel/i/mg/9/d0/58b5cfb6d5239.jpg',
-      }],
-    };
+  props: {
+    comics: {
+      type: Array,
+      required: true,
+    },
   },
 };
 </script>

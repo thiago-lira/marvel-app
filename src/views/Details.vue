@@ -2,11 +2,9 @@
   <div class="details">
     <HeaderDetails />
 
-    {{ comics }}
-
     <div class="custom-background">
       <main class="container">
-        <HeroDetails />
+        <HeroDetails :comics="comics" />
       </main>
     </div>
   </div>
@@ -36,9 +34,7 @@ export default {
   methods: {
     mapComics({ data }) {
       this.comics = data.data.results.map(({ title, images }) => {
-        const comic = {
-          title,
-        };
+        const comic = { title };
         if (images.length > 0) {
           const { extension, path } = images[0];
           comic.url = `${path}.${extension}`;
@@ -61,6 +57,7 @@ export default {
 .custom-background {
   padding: 30px 0;
   position: relative;
+  z-index: 9;
 
   &:after {
     background-image: linear-gradient(to bottom, #e3f8e8 2%, rgba(255, 255, 255, .1) 98%), url(http://i.annihil.us/u/prod/marvel/i/mg/a/f0/5202887448860.jpg);
@@ -75,6 +72,7 @@ export default {
     left: 0;
     top: 0;
     width: 100%;
+    z-index: -1;
   }
 }
 
