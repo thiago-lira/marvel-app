@@ -18,14 +18,4 @@ describe('SearchInput.vue', () => {
     const input = wrapper.find('input');
     expect(input.element.placeholder).toEqual('Procure por heróis');
   });
-
-  it('should to pass input value when "input" event is emitted', async () => {
-    const input = wrapper.find('input');
-    input.element.value = 'A';
-    input.trigger('keyup');
-
-    await wrapper.vm.$nextTick();
-
-    expect(wrapper.emitted().input[0]).toEqual(['A']);
-  });
 });
