@@ -7,7 +7,10 @@
     </div>
 
     <div class="search-input">
-      <SearchInput @input="handleInput" placeholder="Procurar por heróis" />
+      <SearchInput
+        @input="handleInput"
+        placeholder="Procurar por heróis"
+      />
     </div>
   </header>
 </template>
@@ -21,7 +24,8 @@ export default {
     SearchInput,
   },
   methods: {
-    handleInput() {
+    handleInput(payload) {
+      this.$emit('input', payload);
     },
   },
 };
