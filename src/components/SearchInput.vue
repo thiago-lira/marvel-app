@@ -5,7 +5,7 @@
         <img src="@/assets/magnify.svg" alt="Ícone buscar">
       </div>
 
-      <div>
+      <div class="input">
         <input
           v-model="term"
           data-cy="search-input"
@@ -55,12 +55,15 @@ export default {
     padding: 15px 20px;
   }
 
+  .input {
+    flex-grow: 1;
+  }
+
   input {
     background: none;
     border: none;
     color: $main-color;
     font-size: 18px;
-    padding: 2px;
     margin-left: 20px;
     width: 100%;
 
