@@ -45,7 +45,7 @@ yarn test:unit
 ```
 ### Run your unit tests with coverage report
 ```
-yarn test:unit --watch
+yarn test:unit --coverage
 ```
 ### Run your end-to-end tests
 ```
@@ -59,7 +59,7 @@ yarn lint
 
 ## Hooks
 
-There are some git hooks in this project.
+There are some git hooks in this project:
 
 * **Pre push**: before to push, runs unit and E2E test and checks the coverage rate (< 80% it fails).
 * **Pre commit**: before to commit, runs lint.
