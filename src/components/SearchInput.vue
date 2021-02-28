@@ -5,9 +5,9 @@
         <img src="@/assets/magnify.svg" alt="Ícone buscar">
       </div>
 
-      <div>
+      <div class="input">
         <input
-          @keyup="handleChange"
+          v-model="term"
           data-cy="search-input"
           type="text"
           :placeholder="placeholder"
@@ -26,9 +26,18 @@ export default {
       default: '',
     },
   },
-  methods: {
-    handleChange({ target }) {
-      this.$emit('input', target.value);
+  data() {
+    return {
+      term: '',
+    };
+  },
+  watch: {
+    term(newValue) {
+      setTimeout(() => {
+        if (this.term === newValue) {
+          this.$emit('input', this.term);
+        }
+      }, 400);
     },
   },
 };
@@ -46,12 +55,15 @@ export default {
     padding: 15px 20px;
   }
 
+  .input {
+    flex-grow: 1;
+  }
+
   input {
     background: none;
     border: none;
     color: $main-color;
     font-size: 18px;
-    padding: 2px;
     margin-left: 20px;
     width: 100%;
 

@@ -1,8 +1,10 @@
 <template>
   <div class="details">
-    <HeaderDetails />
+    <HeaderDetails @input="handleInput" />
 
-    <Loader v-if="isLoading" />
+    <div v-if="isLoading" class="loader flex">
+      <Loader />
+    </div>
     <div
       v-else
       class="custom-background"
@@ -23,6 +25,7 @@
 <script>
 import HeaderDetails from '@/components/HeaderDetails.vue';
 import HeroDetails from '@/components/HeroDetails.vue';
+import Loader from '@/components/Loader.vue';
 import marvelService from '@/services/marvel';
 import lStorage from '@/utils/localstorage';
 
@@ -33,6 +36,7 @@ export default {
   components: {
     HeaderDetails,
     HeroDetails,
+    Loader,
   },
   data() {
     return {
@@ -57,6 +61,11 @@ export default {
     },
   },
   methods: {
+    handleInput(payload) {
+      if (payload.trim() !== '') {
+        this.$router.push({ name: 'Home', query: { search: payload } });
+      }
+    },
     handleToggleFavorite() {
       const { id, name } = this.character;
       const favIds = [...this.favCharacters];
@@ -124,6 +133,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.loader {
+  justify-content: center;
+  padding: 15px;
+}
 .custom-background {
   background-position: center;
   background-size: cover;

@@ -59,20 +59,6 @@ export default {
     SearchContainer,
     SearchPaginate,
   },
-  watch: {
-    term(newValue) {
-      // TODO: move to function
-      setTimeout(() => {
-        if (newValue === '') {
-          this.fetchCharacters();
-          return;
-        }
-        if (this.term === newValue) {
-          this.getCharactersByName();
-        }
-      }, 400);
-    },
-  },
   computed: {
     sort() {
       return this.isSortAsc ? 'name' : '-name';
@@ -188,15 +174,26 @@ export default {
       this.heroes = this.parseHeroesData(data.data.results);
     },
     getCharacters(params = {}) {
-      this.isLoading = true;
+      const reqParams = params;
+      const { query } = this.$route;
       const { activePage } = this;
 
+      this.isLoading = true;
+
       if (parseInt(this.$route.query.page, 10) !== activePage) {
-        this.$router.push({ query: { page: activePage } });
+        const newQuery = {
+          ...query,
+          page: activePage,
+        };
+        this.$router.push({ query: newQuery });
+      }
+
+      if (query?.search) {
+        reqParams.nameStartsWith = query.search;
       }
 
       marvelService
-        .getCharacters(params)
+        .getCharacters(reqParams)
         .then(this.setResultsData)
         .finally(() => {
           this.isLoading = false;
@@ -214,6 +211,12 @@ export default {
     handleInput(value) {
       this.onlyFavHeroes = false;
       this.term = value;
+
+      if (this.term === '') {
+        this.fetchCharacters();
+      } else {
+        this.getCharactersByName();
+      }
     },
   },
   mounted() {

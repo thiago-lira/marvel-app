@@ -25,4 +25,19 @@ describe('Details view', () => {
       .get('[data-cy=fav-icon]')
       .should('to.exist');
   });
+
+  it('should to redirect to Home view when search', () => {
+    cy.visit('/details/1017100');
+
+    cy
+      .get('[data-cy=search-input]')
+      .type('Wolv');
+
+    cy
+      .location()
+      .should(({ pathname, search }) => {
+        const expected = `${pathname}${search}`;
+        expect(expected).to.eq('/?search=Wolv&page=1');
+      });
+  });
 });
