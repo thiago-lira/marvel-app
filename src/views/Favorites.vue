@@ -102,12 +102,12 @@ export default {
       this.heroes = this.parseHeroesData(data.data.results);
     },
     handleInput(value = '') {
-      if (value.trim() === '') {
-        this.goToHome();
+      if (value.trim() !== '') {
+        this.goToHome({ query: { q: value } });
       }
     },
-    goToHome() {
-      this.$router.push({ name: 'Home' });
+    goToHome(query = {}) {
+      this.$router.push({ name: 'Home', query });
     },
   },
   mounted() {
