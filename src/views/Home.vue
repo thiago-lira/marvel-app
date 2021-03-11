@@ -24,6 +24,7 @@
 import HeroesList from '@/components/HeroesList.vue';
 import SearchPaginate from '@/components/SearchPaginate.vue';
 import marvelService from '@/services/marvel';
+import heroesService from '@/services/heroes';
 
 export default {
   name: 'Home',
@@ -55,13 +56,7 @@ export default {
       this.getCharacters(this.getParams());
     },
     sortHeroes(heroes) {
-      const [value1, value2] = this.isSortAsc ? [1, -1] : [-1, 1];
-
-      return heroes.sort((a, b) => {
-        if (b.name < a.name) return value1;
-        if (b.name > a.name) return value2;
-        return 0;
-      });
+      return heroesService.sort({ heroes, isAsc: this.isSortAsc });
     },
     handleToggleSort() {
       this.isSortAsc = !this.isSortAsc;

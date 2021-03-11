@@ -15,6 +15,7 @@
 <script>
 import HeroesList from '@/components/HeroesList.vue';
 import marvelService from '@/services/marvel';
+import heroesService from '@/services/heroes';
 import localstorageUtil from '@/utils/localstorage';
 
 const favHeroesLS = localstorageUtil('MARVEL_HEROES_ID', []);
@@ -33,13 +34,7 @@ export default {
   },
   methods: {
     sortHeroes(heroes) {
-      const [value1, value2] = this.isSortAsc ? [1, -1] : [-1, 1];
-
-      return heroes.sort((a, b) => {
-        if (b.name < a.name) return value1;
-        if (b.name > a.name) return value2;
-        return 0;
-      });
+      return heroesService.sort({ heroes, isAsc: this.isSortAsc });
     },
     sortFavHeroes() {
       this.heroes = this.sortHeroes(this.heroes);
