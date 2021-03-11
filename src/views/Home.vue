@@ -1,38 +1,27 @@
 <template>
   <div class="home">
-    <HeaderHome @input="handleInput" />
+    <HeroesList
+      :handleInput="handleInput"
+      :handleClickedFav="handleClickedFav"
+      :handleToggleSort="handleToggleSort"
+      :handleToggleFavorite="handleToggleFavorite"
+      :heroes="heroes"
+      :is-loading="isLoading"
+      :only-fav-heroes="false"
+    />
 
-    <section class="main-content">
-      <SearchHeader
-        @clickedFav="handleClickedFav"
-        @toggleSort="handleToggleSort"
-        :total-heroes="heroes.length"
-        :only-fav-heroes="onlyFavHeroes"
+    <div class="paginate">
+      <SearchPaginate
+        @clicked-page="paginate"
+        :totalPages="totalPages"
+        :activePage="activePage"
       />
-
-      <SearchContainer
-        @toggleFavorite="handleToggleFavorite"
-        @detailsClick="handleDetailsClick"
-        :is-loading="isLoading"
-        :heroes="heroes"
-      />
-
-      <div class="paginate">
-        <SearchPaginate
-          v-if="!onlyFavHeroes"
-          @clicked-page="paginate"
-          :totalPages="totalPages"
-          :activePage="activePage"
-        />
-      </div>
-    </section>
+    </div>
   </div>
 </template>
 
 <script>
-import HeaderHome from '@/components/HeaderHome.vue';
-import SearchHeader from '@/components/SearchHeader.vue';
-import SearchContainer from '@/components/SearchContainer.vue';
+import HeroesList from '@/components/HeroesList.vue';
 import SearchPaginate from '@/components/SearchPaginate.vue';
 import marvelService from '@/services/marvel';
 import localstorageUtil from '@/utils/localstorage';
@@ -54,9 +43,7 @@ export default {
     };
   },
   components: {
-    HeaderHome,
-    SearchHeader,
-    SearchContainer,
+    HeroesList,
     SearchPaginate,
   },
   computed: {
@@ -68,9 +55,6 @@ export default {
     },
   },
   methods: {
-    handleDetailsClick({ id }) {
-      this.$router.push({ name: 'Details', params: { id } });
-    },
     fetchCharacters() {
       this.getCharacters(this.getParams());
     },
@@ -143,11 +127,14 @@ export default {
     },
     handleClickedFav() {
       this.onlyFavHeroes = !this.onlyFavHeroes;
+      this.fetchCharacters();
+      /*
       if (this.onlyFavHeroes) {
         this.getFavHeroes();
       } else {
         this.fetchCharacters();
       }
+       */
     },
     getParams() {
       return {
@@ -226,12 +213,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.main-content {
-  margin: auto;
-  max-width: 960px;
-  min-width: 375px;
-}
-
 .paginate {
   text-align: center;
   margin: 30px 0;

@@ -38,6 +38,12 @@ footer {
   display: flex;
 }
 
+.main-content {
+  margin: auto;
+  max-width: 960px;
+  min-width: 375px;
+}
+
 #toast-plugin {
   position: relative;
   z-index: 999;
