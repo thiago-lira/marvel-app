@@ -3,29 +3,29 @@ import service from '@/services/heroes';
 describe('Heroes service', () => {
   describe('ascSort method', () => {
     it('should do ascending sort', () => {
-      const data = [
+      const heroes = [
         { name: 'Loverine' },
         { name: 'Bulk' },
       ];
-      const expectedData = [
+      const expected = [
         { name: 'Bulk' },
         { name: 'Loverine' },
       ];
-      expect(service.ascSort(data)).toEqual(expectedData);
+      expect(service.sort({ heroes })).toEqual(expected);
     });
   });
 
   describe('descSort method', () => {
     it('should do descending sort', () => {
-      const data = [
+      const heroes = [
         { name: 'Bulk' },
         { name: 'Mpider-San' },
       ];
-      const expectedData = [
+      const expected = [
         { name: 'Mpider-San' },
         { name: 'Bulk' },
       ];
-      expect(service.descSort(data)).toEqual(expectedData);
+      expect(service.sort({ heroes, isAsc: false })).toEqual(expected);
     });
   });
 });
