@@ -4,7 +4,6 @@
       :handleInput="handleInput"
       :handleClickedFav="handleClickedFav"
       :handleToggleSort="handleToggleSort"
-      :handleToggleFavorite="handleToggleFavorite"
       :heroes="heroes"
       :is-loading="isLoading"
       :only-fav-heroes="false"
@@ -61,9 +60,6 @@ export default {
     handleToggleSort() {
       this.isSortAsc = !this.isSortAsc;
       this.fetchCharacters();
-    },
-    handleToggleFavorite() {
-      // TODO: Remove me
     },
     handleClickedFav() {
       this.$router.push({ name: 'Favorites' });

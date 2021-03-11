@@ -4,7 +4,7 @@
       :handleInput="handleInput"
       :handleClickedFav="handleClickedFav"
       :handleToggleSort="handleToggleSort"
-      :handleToggleFavorite="handleToggleFavorite"
+      @toggleFavorite="handleToggleFavorite"
       :heroes="heroes"
       :is-loading="isLoading"
       :only-fav-heroes="true"

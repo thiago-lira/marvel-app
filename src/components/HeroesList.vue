@@ -11,7 +11,7 @@
       />
 
       <SearchContainer
-        @toggleFavorite="handleToggleFavorite"
+        @toggleFavorite="emitToggleFavorite"
         @detailsClick="handleDetailsClick"
         :is-loading="isLoading"
         :heroes="heroes"
@@ -45,10 +45,6 @@ export default {
       type: Function,
       required: true,
     },
-    handleToggleFavorite: {
-      type: Function,
-      required: true,
-    },
     heroes: {
       type: Array,
       required: true,
@@ -68,6 +64,9 @@ export default {
     },
   },
   methods: {
+    emitToggleFavorite(payload) {
+      this.$emit('toggleFavorite', payload);
+    },
     handleDetailsClick({ id }) {
       this.$router.push({ name: 'Details', params: { id } });
     },
