@@ -7,7 +7,7 @@
       :handleToggleFavorite="handleToggleFavorite"
       :heroes="heroes"
       :is-loading="isLoading"
-      :only-fav-heroes="false"
+      :only-fav-heroes="onlyFavHeroes"
     />
 
     <div class="paginate">
